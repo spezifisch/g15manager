@@ -94,16 +94,16 @@ def applet(cn, cu, playerbus):
 
 
         text = "MC 1\n" + \
-             "PB 0 0 159 42 0 0 1\n" + \
-             "TO 31 2 %i 1 \"%s\"\n" % (text_size,Title) + \
-             "DL 1 11 158 11 1\n" + \
-             "TO 31 14 %i 1 \"%s\"\n" % (text_size,Artist) + \
-             "TO 31 23 %i 1 \"%s\"\n" % (text_size,Album)  + \
-             "DB 0 32 159 32 1 %i %i \n" % (position,time) + \
-             "TO 2 35 1 0\"%i:%s\"\n" % (posm,poss) + \
-             "TO 2 35 1 1 \"%i\"\n" % Year + \
-             "TO 2 35 1 2 \"%i:%s\"\n" % (totm,tots) + \
-             "MC 0\n";
+            "PB 0 0 159 42 0 0 1\n" + \
+            "TO 31 2 %i 1 \"%s\"\n" % (text_size,Title) + \
+            "DL 1 11 158 11 1\n" + \
+            "TO 31 14 %i 1 \"%s\"\n" % (text_size,Artist) + \
+            "TO 31 23 %i 1 \"%s\"\n" % (text_size,Album)  + \
+            "DB 0 32 159 32 1 %i %i \n" % (position,time) + \
+            "TO 2 35 1 0\"%i:%s\"\n" % (posm,poss) + \
+            "TO 2 35 1 1 \"%i\"\n" % Year + \
+            "TO 2 35 1 2 \"%i:%s\"\n" % (totm,tots) + \
+            "MC 0\n";
 
 
     with open("/tmp/g15manager-amarok", "w") as pipe:
