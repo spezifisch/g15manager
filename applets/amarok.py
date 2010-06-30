@@ -1,9 +1,10 @@
 # coding: UTF-8
 
+import subprocess
+
 import dbus
 import gobject
 import pynotify
-import subprocess
 
 
 def start(check_amarok):
@@ -18,7 +19,7 @@ def start(check_amarok):
         return
 
   
-    process = subprocess.Popen(["g15composer","/tmp/g15manager-amarok"])
+    process = subprocess.Popen(["g15composer", "/tmp/g15manager-amarok"])
 
     cn = ["A", "A", "A", "A", "A", "E", "E", "E", "E", "I", "I", "I", "I", "D",
         "N", "O", "O", "O", "O", "x", "O", "U", "U", "U", "Y", "a", "a", "a", "a",
@@ -75,9 +76,9 @@ def applet(cn, cu, playerbus):
         poss = str(position % 60)
 
         if int(poss) < 10:
-            poss = poss.replace(poss,"0"+poss)
+            poss = poss.replace(poss, "0" + poss)
         if int(tots) < 10:
-            tots = tots.replace(tots,"0"+tots)
+            tots = tots.replace(tots, "0" + tots)
 
 
         for entry in cu:
@@ -86,23 +87,23 @@ def applet(cn, cu, playerbus):
             Album = Album.replace(entry, cn[cu.index(entry)])
 
         if len(Title) <= 20:
-           text_size = 2
+            text_size = 2
         elif 20 < len(Title) <= 30:
-           text_size = 1
+            text_size = 1
         elif len(Title) > 30:
             text_size = 0
 
 
         text = "MC 1\n" + \
             "PB 0 0 159 42 0 0 1\n" + \
-            "TO 31 2 %i 1 \"%s\"\n" % (text_size,Title) + \
-            "DL 1 11 158 11 1\n" + \
-            "TO 31 14 %i 1 \"%s\"\n" % (text_size,Artist) + \
-            "TO 31 23 %i 1 \"%s\"\n" % (text_size,Album)  + \
-            "DB 0 32 159 32 1 %i %i \n" % (position,time) + \
-            "TO 2 35 1 0\"%i:%s\"\n" % (posm,poss) + \
-            "TO 2 35 1 1 \"%i\"\n" % Year + \
-            "TO 2 35 1 2 \"%i:%s\"\n" % (totm,tots) + \
+            "TO 0 2 %i 1 \"%s\"\n" % (text_size, Title) + \
+            "DL 0 11 158 11 1\n" + \
+            "TO 0 14 %i 1 \"%s\"\n" % (text_size, Artist) + \
+            "TO 0 22 %i 1 \"%s\"\n" % (text_size, Album)  + \
+            "DB 0 32 159 32 1 %i %i \n" % (position, time) + \
+            "TO 0 36 1 0\"%i:%s\"\n" % (posm, poss) + \
+            "TO 0 36 1 1 \"%i\"\n" % Year + \
+            "TO 0 36 1 2 \"%i:%s\"\n" % (totm, tots) + \
             "MC 0\n";
 
 
