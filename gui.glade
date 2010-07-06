@@ -336,7 +336,7 @@
                             <child>
                               <object class="GtkLabel" id="label12">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">GMail</property>
+                                <property name="label" translatable="yes">Gmail</property>
                               </object>
                               <packing>
                                 <property name="right_attach">4</property>
@@ -373,6 +373,7 @@
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
                                 <property name="draw_indicator">True</property>
+                                <signal name="toggled" handler="check_gmail_toggled"/>
                               </object>
                               <packing>
                                 <property name="right_attach">4</property>
@@ -383,7 +384,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkEntry" id="entry1">
+                              <object class="GtkEntry" id="gmail_user">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="invisible_char">&#x25CF;</property>
@@ -396,7 +397,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkEntry" id="entry2">
+                              <object class="GtkEntry" id="gmail_passwd">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="invisible_char">&#x25CF;</property>

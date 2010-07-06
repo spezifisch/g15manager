@@ -13,7 +13,7 @@ def start(check_emesene):
         emesenebus = bus.get_object("org.emesene.dbus", "/org/emesene/dbus")
     except:
         pynotify.init("G15 Manager")
-        pynotify.Notification("LCD Manager",
+        pynotify.Notification("G15 Manager",
                               "can't conect to Emesene. Maybe the D-BUS plugin is disabled",
                               "dialog-warning").show()
         check_emesene.set_active(False)

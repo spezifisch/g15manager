@@ -95,7 +95,7 @@ def applet(cn, cu, playerbus):
 
 
         text = "MC 1\n" + \
-            "PB 0 0 159 42 0 0 1\n" + \
+            "PC 0\n" + \
             "TO 0 2 %i 1 \"%s\"\n" % (text_size, Title) + \
             "DL 0 11 158 11 1\n" + \
             "TO 0 14 %i 1 \"%s\"\n" % (text_size, Artist) + \
