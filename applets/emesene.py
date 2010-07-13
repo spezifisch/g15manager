@@ -1,23 +1,10 @@
 # coding: UTF-8
 
 import subprocess
-
 import dbus
 import gobject
-import pynotify
 
-def start(check_emesene):
-
-    try:
-        bus = dbus.SessionBus()
-        emesenebus = bus.get_object("org.emesene.dbus", "/org/emesene/dbus")
-    except:
-        pynotify.init("G15 Manager")
-        pynotify.Notification("G15 Manager",
-                              "can't conect to Emesene. Maybe the D-BUS plugin is disabled",
-                              "dialog-warning").show()
-        check_emesene.set_active(False)
-        return
+def start():
 
     states = {"NLN":"Online", "HDN":"Hidden",
         "AWY": "Away", "BSY": "Busy",
@@ -26,15 +13,18 @@ def start(check_emesene):
 
     process = subprocess.Popen(["g15composer", "/tmp/g15manager-emesene"])
 
-    gobject.timeout_add(1000, applet, emesenebus, states)
+    gobject.timeout_add(1000, applet, states)
 
     return process
 
-def applet(emesenebus, states):
+def applet(states):
     if not loop:
         return False
 
     try:
+        bus = dbus.SessionBus()
+        emesenebus = bus.get_object("org.emesene.dbus", "/org/emesene/dbus")
+
         user = str(emesenebus.get_user_account())
         status = states[emesenebus.get_status()]
         count = int(emesenebus.get_message_count())
@@ -52,7 +42,8 @@ def applet(emesenebus, states):
 
 
     except:
-        text = "TO 0 2 3 2 \"EMESENE\"\n"
+        text = "MC 1\n" + "TO 0 14 1 1 \"Emesene isn't running\"\n" + \
+            "TO 0 22 1 1 \"or the D-Bus plugin is disabled\"\n"  "MC 0\n"
 
 
     with open("/tmp/g15manager-emesene", "w") as pipe:

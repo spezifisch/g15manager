@@ -7,7 +7,7 @@ import gobject
 
 def start():
   
-    process = subprocess.Popen(["g15composer", "/tmp/g15manager-amarok"])
+    process = subprocess.Popen(["g15composer", "/tmp/g15manager-audacious"])
 
     cn = ["A", "A", "A", "A", "A", "E", "E", "E", "E", "I", "I", "I", "I", "D",
         "N", "O", "O", "O", "O", "x", "O", "U", "U", "U", "Y", "a", "a", "a", "a",
@@ -30,7 +30,7 @@ def applet(cn, cu):
 
     try:
         bus = dbus.SessionBus()
-        playerbus = bus.get_object('org.mpris.amarok', '/Player')
+        playerbus = bus.get_object('org.mpris.audacious', '/Player')
 
         status = playerbus.GetStatus()[0]
 
@@ -100,9 +100,9 @@ def applet(cn, cu):
 
 
     except:
-        text =  "TO 0 18 1 1 \"Amarok isn't running\"\n"
+        text =  "TO 0 18 1 1 \"Audacious isn't running\"\n"
 
-    with open("/tmp/g15manager-amarok", "w") as pipe:
+    with open("/tmp/g15manager-audacious", "w") as pipe:
         pipe.write(text)
 
     return loop
