@@ -63,14 +63,9 @@ def applet(cn, cu):
 
             position = playerbus.PositionGet() / 1000
             totm = time / 60
-            tots = str(time % 60)
+            tots = time % 60
             posm = position / 60
-            poss = str(position % 60)
-
-            if int(poss) < 10:
-                poss = poss.replace(poss, "0" + poss)
-            if int(tots) < 10:
-                tots = tots.replace(tots, "0" + tots)
+            poss = position % 60
 
 
             for entry in cu:
@@ -78,12 +73,29 @@ def applet(cn, cu):
                 Artist = Artist.replace(entry, cn[cu.index(entry)])
                 Album = Album.replace(entry, cn[cu.index(entry)])
 
-            if len(Title) <= 20:
+
+            maxlen = max([len(Title), len(Artist), len(Album)])
+
+            if maxlen <= 20:
                 text_size = 2
-            elif 20 < len(Title) <= 30:
+            elif 20 < maxlen <= 30:
                 text_size = 1
-            elif len(Title) > 30:
+            else:
                 text_size = 0
+
+                if len(Title) > 40:
+                    Title = Title[(poss % (len(Title) - 38)):]
+                if len(Artist) > 40:
+                    Artist = Artist[(poss % (len(Artist) - 38)):]
+                if len(Album) > 40:
+                    Album = Album[(poss % (len(Album) - 38)):]
+                
+            if poss < 10:
+                poss = str(poss)
+                poss = poss.replace(poss, "0" + poss)
+            if tots < 10:
+                tots = str(tots)
+                tots = tots.replace(tots, "0" + tots)
 
 
             text = "MC 1\n" + \
