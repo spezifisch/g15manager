@@ -1,0 +1,16 @@
+g15manager.py
+setup.py
+applets/__init__.py
+applets/amarok.py
+applets/audacious.py
+applets/emesene.py
+applets/exaile.py
+applets/gmail.py
+applets/top.py
+gui.glade
+icons/g15.png
+icons/g15stats.png
+icons/gkeys.png
+icons/gmail.png
+g15manager
+g15manager.desktop

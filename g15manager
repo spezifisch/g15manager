@@ -1,0 +1,10 @@
+#!/bin/bash
+
+process=`ps aux | grep -c g15manager.py`
+
+if (($process==1)); then
+cd /usr/share/g15manager
+python g15manager.py
+else
+echo "G15 Manager is already running"
+fi
