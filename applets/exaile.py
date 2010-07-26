@@ -12,13 +12,13 @@ def start():
     cn = ["A", "A", "A", "A", "A", "E", "E", "E", "E", "I", "I", "I", "I", "D",
         "N", "O", "O", "O", "O", "x", "O", "U", "U", "U", "Y", "a", "a", "a", "a",
         "a", "c", "e", "e", "e", "e", "i", "i", "i", "i", "n", "o", "o", "o", "o",
-        "o", "u", "u", "u", "AE", "ae", "a", "o", "u", "ss", "A", "O", "U"]
+        "o", "u", "u", "u", "AE", "ae", "a", "o", "u", "ss", "A", "O", "U","!"]
 
 
     cu = ["À", "Á", "Â", "Ã", "Å", "È", "É", "Ê", "Ë", "Ì", "Í", "Î", "Ï", "Ð",
         "Ñ", "Ò", "Ó", "Ô", "Õ", "×", "Ø", "Ù", "Ú", "Û", "Ý", "à", "á", "â", "ã",
         "å", "ç", "è", "é", "ê", "ë", "ì", "í", "î", "ï", "ñ", "ò", "ó", "ô", "õ",
-        "ø", "ù", "ú", "û", "Æ", "æ", "ä", "ö", "ü", "ß", "Ä", "Ö", "Ü"]
+        "ø", "ù", "ú", "û", "Æ", "æ", "ä", "ö", "ü", "ß", "Ä", "Ö", "Ü","¡"]
 
     gobject.timeout_add(1000, applet, cn, cu)
 
@@ -51,7 +51,7 @@ def applet(cn, cu):
                 except:
                     Year = " "
 
-                time = info[u'mtime']
+                time = info[u'time']
 
             except:
                 Title = ""
@@ -63,9 +63,9 @@ def applet(cn, cu):
 
             position = playerbus.PositionGet() / 1000
             totm = time / 60
-            tots = str(time % 60)
+            tots = time % 60
             posm = position / 60
-            poss = str(position % 60)
+            poss = position % 60
 
 
             for entry in cu:
