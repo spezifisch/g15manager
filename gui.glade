@@ -76,22 +76,58 @@
       <object class="GtkVBox" id="vbox">
         <property name="visible">True</property>
         <child>
-          <object class="GtkLabel" id="label">
+          <object class="GtkMenuBar" id="menubar">
             <property name="visible">True</property>
-            <property name="label" translatable="yes">G15 Manager</property>
-            <attributes>
-              <attribute name="gravity" value="east"/>
-            </attributes>
+            <child>
+              <object class="GtkMenuItem" id="menuitem1">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">_Fitxer</property>
+                <property name="use_underline">True</property>
+                <child type="submenu">
+                  <object class="GtkMenu" id="menu1">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkImageMenuItem" id="imagemenuitem5">
+                        <property name="label">gtk-quit</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <signal name="activate" handler="quit"/>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuItem" id="menuitem4">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">A_juda</property>
+                <property name="use_underline">True</property>
+                <child type="submenu">
+                  <object class="GtkMenu" id="menu3">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkImageMenuItem" id="imagemenuitem10">
+                        <property name="label">gtk-about</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <signal name="activate" handler="show_aboutdialog"/>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="padding">10</property>
             <property name="position">0</property>
           </packing>
         </child>
         <child>
-          <object class="GtkHBox" id="hbox1">
+          <object class="GtkHBox" id="hbox">
             <property name="visible">True</property>
             <child>
               <object class="GtkIconView" id="iconview">
@@ -117,7 +153,6 @@
             <child>
               <object class="GtkNotebook" id="notebook">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
                 <property name="show_tabs">False</property>
                 <child>
                   <object class="GtkTreeView" id="treeview">
@@ -125,6 +160,7 @@
                     <property name="can_focus">True</property>
                     <property name="model">applets</property>
                     <property name="headers_clickable">False</property>
+                    <property name="search_column">0</property>
                     <child>
                       <object class="GtkTreeViewColumn" id="treeviewcolumn1">
                         <property name="title">Applet</property>
@@ -256,7 +292,7 @@ Interface:</property>
                 <child>
                   <object class="GtkTable" id="table3">
                     <property name="visible">True</property>
-                    <property name="n_rows">4</property>
+                    <property name="n_rows">6</property>
                     <property name="n_columns">2</property>
                     <child>
                       <object class="GtkEntry" id="gmail_passwd">
@@ -268,8 +304,8 @@ Interface:</property>
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="right_attach">2</property>
-                        <property name="top_attach">2</property>
-                        <property name="bottom_attach">3</property>
+                        <property name="top_attach">3</property>
+                        <property name="bottom_attach">4</property>
                         <property name="y_options"></property>
                       </packing>
                     </child>
@@ -279,8 +315,8 @@ Interface:</property>
                         <property name="label" translatable="yes">Password:</property>
                       </object>
                       <packing>
-                        <property name="top_attach">2</property>
-                        <property name="bottom_attach">3</property>
+                        <property name="top_attach">3</property>
+                        <property name="bottom_attach">4</property>
                         <property name="y_options">GTK_EXPAND</property>
                       </packing>
                     </child>
@@ -290,8 +326,8 @@ Interface:</property>
                         <property name="label" translatable="yes">User:</property>
                       </object>
                       <packing>
-                        <property name="top_attach">1</property>
-                        <property name="bottom_attach">2</property>
+                        <property name="top_attach">2</property>
+                        <property name="bottom_attach">3</property>
                         <property name="y_options">GTK_EXPAND</property>
                       </packing>
                     </child>
@@ -304,8 +340,8 @@ Interface:</property>
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="right_attach">2</property>
-                        <property name="top_attach">1</property>
-                        <property name="bottom_attach">2</property>
+                        <property name="top_attach">2</property>
+                        <property name="bottom_attach">3</property>
                         <property name="y_options"></property>
                       </packing>
                     </child>
@@ -323,8 +359,41 @@ Interface:</property>
                       </object>
                       <packing>
                         <property name="right_attach">2</property>
-                        <property name="top_attach">3</property>
-                        <property name="bottom_attach">4</property>
+                        <property name="top_attach">5</property>
+                        <property name="bottom_attach">6</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="save_gmail">
+                        <property name="label" translatable="yes">Save</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <signal name="clicked" handler="save_gmail"/>
+                      </object>
+                      <packing>
+                        <property name="right_attach">2</property>
+                        <property name="top_attach">4</property>
+                        <property name="bottom_attach">5</property>
+                        <property name="x_options"></property>
+                        <property name="y_options">GTK_EXPAND</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="use_gk">
+                        <property name="label" translatable="yes">Use Gnome Keyring to save the account</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">False</property>
+                        <property name="draw_indicator">True</property>
+                        <signal name="toggled" handler="use_gk_toggled"/>
+                      </object>
+                      <packing>
+                        <property name="right_attach">2</property>
+                        <property name="top_attach">1</property>
+                        <property name="bottom_attach">2</property>
+                        <property name="x_options">GTK_EXPAND</property>
+                        <property name="y_options">GTK_EXPAND</property>
                       </packing>
                     </child>
                   </object>
@@ -343,7 +412,7 @@ Interface:</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkVBox" id="vbox1">
+                  <object class="GtkVBox" id="vbox2">
                     <property name="visible">True</property>
                     <child>
                       <object class="GtkTable" id="table6">
@@ -930,79 +999,6 @@ Interface:</property>
                   </object>
                   <packing>
                     <property name="position">3</property>
-                    <property name="tab_fill">False</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkTable" id="table1">
-                    <property name="visible">True</property>
-                    <property name="n_rows">3</property>
-                    <property name="n_columns">3</property>
-                    <child>
-                      <object class="GtkFixed" id="fixed1">
-                        <property name="visible">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkFixed" id="fixed2">
-                        <property name="visible">True</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">2</property>
-                        <property name="right_attach">3</property>
-                        <property name="top_attach">2</property>
-                        <property name="bottom_attach">3</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLinkButton" id="linkbutton1">
-                        <property name="label" translatable="yes">https://launchpad.net/g15manager</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
-                        <property name="has_tooltip">True</property>
-                        <property name="relief">none</property>
-                        <property name="uri">https://launchpad.net/g15manager</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">1</property>
-                        <property name="right_attach">2</property>
-                        <property name="top_attach">1</property>
-                        <property name="bottom_attach">2</property>
-                        <property name="x_options">GTK_SHRINK | GTK_FILL</property>
-                        <property name="y_options"></property>
-                      </packing>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="position">4</property>
-                  </packing>
-                </child>
-                <child type="tab">
-                  <object class="GtkLabel" id="label5">
-                    <property name="visible">True</property>
-                    <property name="label" translatable="yes">about</property>
-                  </object>
-                  <packing>
-                    <property name="position">4</property>
                     <property name="tab_fill">False</property>
                   </packing>
                 </child>

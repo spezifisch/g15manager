@@ -4,7 +4,9 @@ import urllib2
 import base64
 from xml import sax
 
-def start(user,passwd,minutes):
+import gnomekeyring
+
+def start(user,passwd, minutes):
 
     process = subprocess.Popen(["g15composer", "/tmp/g15manager-gmail"])
 
@@ -99,3 +101,34 @@ def applet(user_passwd):
         pipe.write(text)
 
     return loop
+
+
+def save(user,passwd):
+    if gnomekeyring.get_info_sync("g15_manager").get_is_locked():
+        gnomekeyring.unlock_sync("g15_manager","password")
+
+    if not "g15_manager" in gnomekeyring.list_keyring_names_sync():
+        gnomekeyring.create_sync("g15_manager","password")
+    if user != "" and passwd != "":
+        gnomekeyring.item_create_sync("g15_manager", gnomekeyring.ITEM_GENERIC_SECRET,user,{},passwd,True)
+
+    gnomekeyring.lock_sync("g15_manager")
+
+
+def load():
+    user = ""
+    passwd = ""
+
+    if gnomekeyring.get_info_sync("g15_manager").get_is_locked():
+        gnomekeyring.unlock_sync("g15_manager","password")
+
+
+    if "g15_manager" in gnomekeyring.list_keyring_names_sync():
+        ids = gnomekeyring.list_item_ids_sync("g15_manager")
+        item = gnomekeyring.item_get_info_sync("g15_manager", ids[0])
+        user = item.get_display_name()
+        passwd = item.get_secret()
+
+    gnomekeyring.lock_sync("g15_manager")
+
+    return user, passwd

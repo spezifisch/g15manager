@@ -1,3 +1,5 @@
+# coding: UTF-8
+
 import ConfigParser
 import os
 import subprocess
@@ -18,7 +20,6 @@ class Main:
         builder.add_from_file("gui.glade")
         builder.connect_signals(self)
 
-
         self.window = builder.get_object("window")
         self.check_amarok = builder.get_object("check_amarok")
         self.check_top = builder.get_object("check_top")
@@ -33,6 +34,7 @@ class Main:
         self.notebook = builder.get_object("notebook")
         self.applets = builder.get_object("applets")
         self.treeview = builder.get_object("treeview")
+        self.use_gk = builder.get_object("use_gk")
 
         self.command_g1 = builder.get_object("command_g1")
         self.command_g2 = builder.get_object("command_g2")
@@ -69,11 +71,13 @@ class Main:
 
         self.processes = [0, 0, 0, 0, 0, 0, 0]
 
+
         self.config = ConfigParser.ConfigParser()
         try:
             self.config.read("%s/.g15manager" % os.environ["HOME"])
 
             self.g15stats_interface.set_text(self.config.get("g15manager", "g15stats_interface"))
+            self.use_gk.set_active(self.config.getboolean("g15manager", "use_gk"))
 
             self.applets.set_value(self.applets.get_iter(0), 1, self.config.getboolean("g15manager", "launch_amarok"))
             self.applets.set_value(self.applets.get_iter(1), 1, self.config.getboolean("g15manager", "launch_audacious"))
@@ -82,13 +86,6 @@ class Main:
             self.applets.set_value(self.applets.get_iter(4), 1, self.config.getboolean("g15manager", "launch_g15stats"))
             self.applets.set_value(self.applets.get_iter(5), 1, self.config.getboolean("g15manager", "launch_gmail"))
             self.applets.set_value(self.applets.get_iter(6), 1, self.config.getboolean("g15manager", "launch_top"))
-
-
-            for i in range(7):
-                iter = self.applets.get_iter(i)
-                if self.applets.get_value(iter, 1):
-                    self.applets.set_value(iter, 1, False)
-                    self.toggle_applet(None, i)
 
         except:
             with open("%s/.g15manager" % os.environ["HOME"], "w") as configfile:
@@ -102,8 +99,17 @@ class Main:
             self.config.set("g15manager", "launch_gmail", False)
             self.config.set("g15manager", "launch_exaile", False)
             self.config.set("g15manager", "launch_audacious", False)
+            self.config.set("g15manager", "use_gk", False)
             with open("%s/.g15manager" % os.environ["HOME"], "w") as configfile:
                 self.config.write(configfile)
+
+        self.load_gmail()
+
+        for i in range(7):
+            iter = self.applets.get_iter(i)
+            if self.applets.get_value(iter, 1):
+                self.applets.set_value(iter, 1, False)
+                self.toggle_applet(None, i)
 
 
         keys = ["G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "G10", "G11", "G12", "G13", "G14", "G15", "G16", "G17", "G18"]
@@ -237,7 +243,7 @@ class Main:
                 self.processes[4] = subprocess.Popen(["g15stats", "-i", self.g15stats_interface.get_text()])
 
             self.config.set("g15manager", "launch_g15stats", self.applets.get_value(iter, 1))
-            self.config.set("g15manager", "g15stats_interface",self.g15stats_interface.get_text())
+            self.config.set("g15manager", "g15stats_interface", self.g15stats_interface.get_text())
 
         elif item == 5:
             if self.applets.get_value(iter, 1):
@@ -265,7 +271,32 @@ class Main:
 
 
         with open("%s/.g15manager" % os.environ["HOME"], "w") as configfile:
-                    self.config.write(configfile)
+            self.config.write(configfile)
+
+    def save_gmail(self, widget):
+        if self.use_gk.get_active():
+            applets.gmail.save(self.gmail_user.get_text(), self.gmail_passwd.get_text())
+
+    def load_gmail(self):
+        if self.use_gk.get_active():
+            user, passwd = applets.gmail.load()
+            self.gmail_user.set_text(user)
+            self.gmail_passwd.set_text(passwd)
+
+    def show_aboutdialog(self, widget):
+        dialog = gtk.AboutDialog()
+        dialog.set_name("G15 Daemon")
+        dialog.set_version("0.1.x")
+        dialog.set_authors(["Nofre Móra"])
+        dialog.set_website("https://launchpad.net/g15manager")
+        dialog.run()
+        dialog.destroy()
+
+    def use_gk_toggled(self, widget):
+        self.config.set("g15manager", "use_gk", self.use_gk.get_active())
+        with open("%s/.g15manager" % os.environ["HOME"], "w") as configfile:
+            self.config.write(configfile)
+        self.load_gmail()
 
 
 if __name__ == "__main__":
