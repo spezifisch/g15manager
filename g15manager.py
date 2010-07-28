@@ -1,6 +1,7 @@
 # coding: UTF-8
 
 import ConfigParser
+import ctypes
 import os
 import subprocess
 
@@ -10,15 +11,17 @@ import applets.emesene
 import applets.exaile
 import applets.gmail
 import applets.top
+import glib
 import gtk
 import keybinder
-
 
 class Main:
     def __init__(self):
         builder = gtk.Builder()
-        builder.add_from_file("gui.glade")
+        builder.set_translation_domain("g15manager")
+        builder.add_from_file("g15manager.ui")
         builder.connect_signals(self)
+
 
         self.window = builder.get_object("window")
         self.check_amarok = builder.get_object("check_amarok")
@@ -300,5 +303,12 @@ class Main:
 
 
 if __name__ == "__main__":
+    glib.set_application_name("G15 Manager")
+    
+    libc = ctypes.cdll.LoadLibrary("libc.so.6")
+    buff = ctypes.create_string_buffer(11)
+    buff.value = "g15manager"
+    libc.prctl(15, ctypes.byref(buff), 0, 0, 0)
+
     Main = Main()
     gtk.main()

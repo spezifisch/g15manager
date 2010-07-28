@@ -365,10 +365,11 @@ Interface:</property>
                     </child>
                     <child>
                       <object class="GtkButton" id="save_gmail">
-                        <property name="label" translatable="yes">Save</property>
+                        <property name="label">gtk-save</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="use_stock">True</property>
                         <signal name="clicked" handler="save_gmail"/>
                       </object>
                       <packing>

@@ -7,7 +7,7 @@ applets/emesene.py
 applets/exaile.py
 applets/gmail.py
 applets/top.py
-gui.glade
+g15manager.ui
 icons/g15.png
 icons/g15stats.png
 icons/gkeys.png

@@ -1,0 +1,36 @@
+# Catalan translations for G15 Manager package
+# Traduccions al català del paquet «G15 Manager».
+# Copyright (C) 2010 THE G15 Manager'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the G15 Manager package.
+# Nofre Móra <nodiek@gmail.com>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: G15 Manager\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-07-27 08:44+0200\n"
+"PO-Revision-Date: 2010-07-27 08:45+0200\n"
+"Last-Translator: Nofre Móra <nodiek@gmail.com>\n"
+"Language-Team: Catalan\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Enable"
+msgstr "Activat"
+
+msgid ""
+"Network\n"
+"Interface:"
+msgstr ""
+"Interfície\n"
+"de Xarxa:"
+
+msgid "Password:"
+msgstr "Contrasenya:"
+
+msgid "User:"
+msgstr "Usuari:"
+
+msgid "Use Gnome Keyring to save the account"
+msgstr "Utilitzar l'anell de claus del GNOME\n per guardar les dades"
