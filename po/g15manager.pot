@@ -32,3 +32,6 @@ msgstr ""
 
 msgid "Use Gnome Keyring to save the account"
 msgstr ""
+
+msgid "Enabled"
+msgstr ""

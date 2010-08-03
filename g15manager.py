@@ -13,6 +13,7 @@ import applets.gmail
 import applets.top
 import glib
 import gtk
+import gettext
 import keybinder
 
 class Main:
@@ -22,23 +23,21 @@ class Main:
         builder.add_from_file("g15manager.ui")
         builder.connect_signals(self)
 
-
         self.window = builder.get_object("window")
-        self.check_amarok = builder.get_object("check_amarok")
-        self.check_top = builder.get_object("check_top")
-        self.check_emesene = builder.get_object("check_emesene")
-        self.check_g15stats = builder.get_object("check_g15stats")
-        self.check_gmail = builder.get_object("check_gmail")
         self.gmail_user = builder.get_object("gmail_user")
         self.gmail_passwd = builder.get_object("gmail_passwd")
+        self.gmail_update_interval = builder.get_object("gmail_update_interval")
         self.g15stats_interface = builder.get_object("g15stats_interface")     
         self.popup_menu = builder.get_object("popup_menu")
         self.iconview = builder.get_object("iconview")
         self.notebook = builder.get_object("notebook")
         self.applets = builder.get_object("applets")
         self.treeview = builder.get_object("treeview")
+        self.info_label = builder.get_object("info_label")
         self.use_gk = builder.get_object("use_gk")
-
+        self.enable_bindings = builder.get_object("enable_bindings")
+        self.start_minimized = builder.get_object("start_minimized")
+        self.item_show_hide = builder.get_object("item_show_hide")    
         self.command_g1 = builder.get_object("command_g1")
         self.command_g2 = builder.get_object("command_g2")
         self.command_g3 = builder.get_object("command_g3")
@@ -58,6 +57,11 @@ class Main:
         self.command_g17 = builder.get_object("command_g17")
         self.command_g18 = builder.get_object("command_g18")
 
+
+	gettext.textdomain("g15manager")
+	gettext.bindtextdomain("g15manager")
+	_ = gettext.gettext
+
 #        import appindicator
 #        indicator = appindicator.Indicator("g15manager",
 #                "distributor-logo", appindicator.CATEGORY_APPLICATION_STATUS)
@@ -67,20 +71,23 @@ class Main:
         self.statusicon = gtk.StatusIcon()
         self.statusicon.set_from_file("icons/g15.png")
         self.statusicon.connect("popup-menu", self.statusicon_right_click)
-        self.statusicon.connect("activate", self.statusicon_left_click)
+        self.statusicon.connect("activate", self.show_hide)
         self.statusicon.set_visible(True)
 
         #self.iconview.set_cursor(0, cell=None, start_editing=False)
 
         self.processes = [0, 0, 0, 0, 0, 0, 0]
 
+        self.gmail_update_interval.set_value(1)
 
         self.config = ConfigParser.ConfigParser()
         try:
             self.config.read("%s/.g15manager" % os.environ["HOME"])
 
             self.g15stats_interface.set_text(self.config.get("g15manager", "g15stats_interface"))
+            self.gmail_update_interval.set_value(self.config.getint("g15manager", "gmail_update_interval"))
             self.use_gk.set_active(self.config.getboolean("g15manager", "use_gk"))
+            self.start_minimized.set_active(self.config.getboolean("g15manager", "start_minimized"))
 
             self.applets.set_value(self.applets.get_iter(0), 1, self.config.getboolean("g15manager", "launch_amarok"))
             self.applets.set_value(self.applets.get_iter(1), 1, self.config.getboolean("g15manager", "launch_audacious"))
@@ -103,6 +110,8 @@ class Main:
             self.config.set("g15manager", "launch_exaile", False)
             self.config.set("g15manager", "launch_audacious", False)
             self.config.set("g15manager", "use_gk", False)
+            self.config.set("g15manager", "start_minimized", False)
+            self.config.set("g15manager", "gmail_update_interval", 1)
             with open("%s/.g15manager" % os.environ["HOME"], "w") as configfile:
                 self.config.write(configfile)
 
@@ -115,18 +124,32 @@ class Main:
                 self.toggle_applet(None, i)
 
 
-        keys = ["G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "G10", "G11", "G12", "G13", "G14", "G15", "G16", "G17", "G18"]
+        self.keys = [["G1",self.command_g1], ["G2",self.command_g2], ["G3",self.command_g3],
+                    ["G4",self.command_g4], ["G5",self.command_g5], ["G6",self.command_g6],
+                    ["G7",self.command_g7], ["G8",self.command_g8], ["G9",self.command_g9],
+                    ["G10",self.command_g10], ["G11",self.command_g11], ["G12",self.command_g12],
+                    ["G13",self.command_g13], ["G14",self.command_g14], ["G15",self.command_g15],
+                    ["G16",self.command_g16], ["G17",self.command_g17], ["G18",self.command_g18]]
 
 
-        for key in keys:
-            keybinder.bind(key, self.key_pressed, key)
+        if not self.start_minimized.get_active():
+            self.window.show()
+            self.item_show_hide.set_label("Hide")
+            self.window_is_visible = True
+        else:
+            self.window_is_visible = False
 
 
-    def statusicon_left_click(self, widget):
-        if self.window.is_active() == True:
+    def show_hide(self, widget):
+        if self.window_is_visible:
             self.window.hide()
+            self.item_show_hide.set_label("Show")
+            self.window_is_visible = False
         else:
             self.window.present()
+            self.item_show_hide.set_label("Hide")
+            self.window_is_visible = True
+
 
     def statusicon_right_click(self, icon, button, time):
         self.popup_menu.popup(None, None, gtk.status_icon_position_menu, button, time, self.statusicon)
@@ -140,50 +163,33 @@ class Main:
 
 
     def window_hide(self, widget, data=None):
-        self.window.hide()
+        self.show_hide(widget)
         return True
 
-    def key_pressed(self, key):
-        if key == "G1":
-            subprocess.Popen(self.command_g1.get_text())
-        elif key == "G2":
-            subprocess.Popen(self.command_g2.get_text())
-        elif key == "G3":
-            subprocess.Popen(self.command_g3.get_text())
-        elif key == "G4":
-            subprocess.Popen(self.command_g4.get_text())
-        elif key == "G5":
-            subprocess.Popen(self.command_g5.get_text())
-        elif key == "G6":
-            subprocess.Popen(self.command_g6.get_text())
-        elif key == "G7":
-            subprocess.Popen(self.command_g7.get_text())
-        elif key == "G8":
-            subprocess.Popen(self.command_g8.get_text())
-        elif key == "G9":
-            subprocess.Popen(self.command_g9.get_text())
-        elif key == "G10":
-            subprocess.Popen(self.command_g10.get_text())
-        elif key == "G11":
-            subprocess.Popen(self.command_g11.get_text())
-        elif key == "G12":
-            subprocess.Popen(self.command_g12.get_text())
-        elif key == "G13":
-            subprocess.Popen(self.command_g13.get_text())
-        elif key == "G14":
-            subprocess.Popen(self.command_g14.get_text())
-        elif key == "G15":
-            subprocess.Popen(self.command_g15.get_text())
-        elif key == "G16":
-            subprocess.Popen(self.command_g16.get_text())
-        elif key == "G17":
-            subprocess.Popen(self.command_g17.get_text())
-        elif key == "G18":
-            subprocess.Popen(self.command_g18.get_text())
+
+    def enable_bindings_toggled(self, widget):
+        if self.enable_bindings.get_active():
+            for key in self.keys:
+                keybinder.bind(key[0], self.key_pressed, key[0])
+        else:
+            for key in self.keys:
+                keybinder.unbind(key[0])
+
+
+    def key_pressed(self, pressed_key):
+        if self.enable_bindings.get_active():
+            for key in self.keys:
+                if pressed_key == key[0]:
+                    command = key[1].get_text().split(" ")
+                    command_list = []
+                    for arg in command:
+                        command_list.append(arg)
+                    subprocess.Popen(command_list)
 
 
     def change_page(self, widget):
         self.notebook.set_current_page(self.iconview.get_selected_items()[0][0])
+
 
     def toggle_applet(self, widget, item):
         item = int(item)
@@ -256,7 +262,7 @@ class Main:
             else:
                 self.applets.set_value(iter, 1, True)
                 applets.gmail.loop = True
-                self.processes[5] = applets.gmail.start(self.gmail_user.get_text(), self.gmail_passwd.get_text(), 1)
+                self.processes[5] = applets.gmail.start(self.gmail_user.get_text(), self.gmail_passwd.get_text(), self.gmail_update_interval.get_value_as_int())
 
             self.config.set("g15manager", "launch_gmail", self.applets.get_value(iter, 1))
 
@@ -276,9 +282,17 @@ class Main:
         with open("%s/.g15manager" % os.environ["HOME"], "w") as configfile:
             self.config.write(configfile)
 
+
     def save_gmail(self, widget):
         if self.use_gk.get_active():
             applets.gmail.save(self.gmail_user.get_text(), self.gmail_passwd.get_text())
+
+        self.config.set("g15manager", "gmail_update_interval", self.gmail_update_interval.get_value_as_int())
+        with open("%s/.g15manager" % os.environ["HOME"], "w") as configfile:
+            self.config.write(configfile)
+
+        print self.gmail_update_interval.get_value_as_int()
+
 
     def load_gmail(self):
         if self.use_gk.get_active():
@@ -286,10 +300,11 @@ class Main:
             self.gmail_user.set_text(user)
             self.gmail_passwd.set_text(passwd)
 
+
     def show_aboutdialog(self, widget):
         dialog = gtk.AboutDialog()
-        dialog.set_name("G15 Daemon")
-        dialog.set_version("0.1.x")
+        dialog.set_name("G15 Manager")
+        dialog.set_version("0.2")
         dialog.set_authors(["Nofre Móra"])
         dialog.set_website("https://launchpad.net/g15manager")
         dialog.run()
@@ -301,6 +316,29 @@ class Main:
             self.config.write(configfile)
         self.load_gmail()
 
+
+    def start_minimized_toggled(self, widget):
+        self.config.set("g15manager", "start_minimized", self.start_minimized.get_active())
+        with open("%s/.g15manager" % os.environ["HOME"], "w") as configfile:
+            self.config.write(configfile)
+
+
+    def applet_info(self, widget):
+        item = self.treeview.get_cursor()[0][0]
+        if item == 0:
+            self.info_label.set_text(_("Shows the Amarok's\n current track"))
+        elif item == 1:
+            self.info_label.set_text(_("Shows the Audacious's\n current track"))
+        elif item == 2:
+            self.info_label.set_text(_("Shows the number of unread\nmessages of Emesene"))
+        elif item == 3:
+            self.info_label.set_text(_("Shows the Exaile's\n current track"))
+        elif item == 4:
+            self.info_label.set_text(_("Shows the use of CPU, memory,\nswap and network, temperatures\nand more"))
+        elif item == 5:
+            self.info_label.set_text(_("Shows the unread mails\nof your Gmail account"))
+        elif item == 6:
+            self.info_label.set_text(_("Shows the 4 processes\n that consume more CPU"))
 
 if __name__ == "__main__":
     glib.set_application_name("G15 Manager")

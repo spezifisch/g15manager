@@ -26,6 +26,10 @@
         <col id="0">icons/gkeys.png</col>
         <col id="1">invalid</col>
       </row>
+      <row>
+        <col id="0">icons/config.png</col>
+        <col id="1">invalid</col>
+      </row>
     </data>
   </object>
   <object class="GtkListStore" id="applets">
@@ -67,7 +71,6 @@
     </data>
   </object>
   <object class="GtkWindow" id="window">
-    <property name="visible">True</property>
     <property name="title" translatable="yes">G15 Manager</property>
     <property name="resizable">False</property>
     <property name="icon">icons/g15.png</property>
@@ -155,45 +158,63 @@
                 <property name="visible">True</property>
                 <property name="show_tabs">False</property>
                 <child>
-                  <object class="GtkTreeView" id="treeview">
+                  <object class="GtkVBox" id="vbox1">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="model">applets</property>
-                    <property name="headers_clickable">False</property>
-                    <property name="search_column">0</property>
                     <child>
-                      <object class="GtkTreeViewColumn" id="treeviewcolumn1">
-                        <property name="title">Applet</property>
-                        <property name="expand">True</property>
-                        <property name="alignment">0.5</property>
+                      <object class="GtkTreeView" id="treeview">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="model">applets</property>
+                        <property name="headers_clickable">False</property>
+                        <property name="search_column">0</property>
+                        <signal name="cursor_changed" handler="applet_info"/>
                         <child>
-                          <object class="GtkCellRendererText" id="cellrenderertext"/>
-                          <attributes>
-                            <attribute name="text">0</attribute>
-                          </attributes>
+                          <object class="GtkTreeViewColumn" id="treeviewcolumn1">
+                            <property name="title">Applet</property>
+                            <property name="expand">True</property>
+                            <property name="alignment">0.5</property>
+                            <child>
+                              <object class="GtkCellRendererText" id="cellrenderertext"/>
+                              <attributes>
+                                <attribute name="text">0</attribute>
+                              </attributes>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="treeviewcolumn2">
+                            <property name="title">Enabled</property>
+                            <property name="alignment">0.5</property>
+                            <child>
+                              <object class="GtkCellRendererToggle" id="cellrenderertoggle">
+                                <signal name="toggled" handler="toggle_applet"/>
+                              </object>
+                              <attributes>
+                                <attribute name="active">1</attribute>
+                              </attributes>
+                            </child>
+                          </object>
                         </child>
                       </object>
+                      <packing>
+                        <property name="position">0</property>
+                      </packing>
                     </child>
                     <child>
-                      <object class="GtkTreeViewColumn" id="treeviewcolumn2">
-                        <property name="title">Enabled</property>
-                        <property name="alignment">0.5</property>
-                        <child>
-                          <object class="GtkCellRendererToggle" id="cellrenderertoggle">
-                            <signal name="toggled" handler="toggle_applet"/>
-                          </object>
-                          <attributes>
-                            <attribute name="active">1</attribute>
-                          </attributes>
-                        </child>
+                      <object class="GtkLabel" id="info_label">
+                        <property name="visible">True</property>
+                        <property name="justify">center</property>
                       </object>
+                      <packing>
+                        <property name="position">1</property>
+                      </packing>
                     </child>
                   </object>
                 </child>
                 <child type="tab">
                   <object class="GtkLabel" id="label11">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">General</property>
+                    <property name="label" translatable="yes">applets</property>
                   </object>
                   <packing>
                     <property name="tab_fill">False</property>
@@ -209,6 +230,7 @@
                         <property name="visible">True</property>
                         <property name="label" translatable="yes">Network
 Interface:</property>
+                        <property name="justify">center</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -292,7 +314,7 @@ Interface:</property>
                 <child>
                   <object class="GtkTable" id="table3">
                     <property name="visible">True</property>
-                    <property name="n_rows">6</property>
+                    <property name="n_rows">7</property>
                     <property name="n_columns">2</property>
                     <child>
                       <object class="GtkEntry" id="gmail_passwd">
@@ -354,16 +376,6 @@ Interface:</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkFixed" id="fixed6">
-                        <property name="visible">True</property>
-                      </object>
-                      <packing>
-                        <property name="right_attach">2</property>
-                        <property name="top_attach">5</property>
-                        <property name="bottom_attach">6</property>
-                      </packing>
-                    </child>
-                    <child>
                       <object class="GtkButton" id="save_gmail">
                         <property name="label">gtk-save</property>
                         <property name="visible">True</property>
@@ -374,20 +386,26 @@ Interface:</property>
                       </object>
                       <packing>
                         <property name="right_attach">2</property>
-                        <property name="top_attach">4</property>
-                        <property name="bottom_attach">5</property>
+                        <property name="top_attach">5</property>
+                        <property name="bottom_attach">6</property>
                         <property name="x_options"></property>
                         <property name="y_options">GTK_EXPAND</property>
                       </packing>
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="use_gk">
-                        <property name="label" translatable="yes">Use Gnome Keyring to save the account</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="draw_indicator">True</property>
                         <signal name="toggled" handler="use_gk_toggled"/>
+                        <child>
+                          <object class="GtkLabel" id="label9">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Use Gnome Keyring to save the account</property>
+                            <property name="justify">center</property>
+                          </object>
+                        </child>
                       </object>
                       <packing>
                         <property name="right_attach">2</property>
@@ -395,6 +413,52 @@ Interface:</property>
                         <property name="bottom_attach">2</property>
                         <property name="x_options">GTK_EXPAND</property>
                         <property name="y_options">GTK_EXPAND</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkHBox" id="hbox1">
+                        <property name="visible">True</property>
+                        <child>
+                          <object class="GtkLabel" id="label10">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Update interval (in minutes) :</property>
+                          </object>
+                          <packing>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkSpinButton" id="gmail_update_interval">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="max_length">3</property>
+                            <property name="invisible_char">&#x25CF;</property>
+                            <property name="width_chars">3</property>
+                            <property name="xalign">0.5</property>
+                            <property name="adjustment">gmail_update_interval_adjustment</property>
+                            <property name="numeric">True</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="padding">5</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="right_attach">2</property>
+                        <property name="top_attach">4</property>
+                        <property name="bottom_attach">5</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkFixed" id="fixed6">
+                        <property name="visible">True</property>
+                      </object>
+                      <packing>
+                        <property name="right_attach">2</property>
+                        <property name="top_attach">6</property>
+                        <property name="bottom_attach">7</property>
                       </packing>
                     </child>
                   </object>
@@ -421,12 +485,13 @@ Interface:</property>
                         <property name="n_rows">2</property>
                         <property name="n_columns">3</property>
                         <child>
-                          <object class="GtkCheckButton" id="checkbutton1">
+                          <object class="GtkCheckButton" id="enable_bindings">
                             <property name="label" translatable="yes">Enable</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="draw_indicator">True</property>
+                            <signal name="toggled" handler="enable_bindings_toggled"/>
                           </object>
                           <packing>
                             <property name="right_attach">3</property>
@@ -437,7 +502,6 @@ Interface:</property>
                         <child>
                           <object class="GtkRadioButton" id="radiobutton1">
                             <property name="label" translatable="yes">M1</property>
-                            <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="xalign">0.4699999988079071</property>
@@ -453,7 +517,6 @@ Interface:</property>
                         <child>
                           <object class="GtkRadioButton" id="radiobutton2">
                             <property name="label" translatable="yes">M2</property>
-                            <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="active">True</property>
@@ -470,7 +533,6 @@ Interface:</property>
                         <child>
                           <object class="GtkRadioButton" id="radiobutton3">
                             <property name="label" translatable="yes">M3</property>
-                            <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="active">True</property>
@@ -1003,6 +1065,78 @@ Interface:</property>
                     <property name="tab_fill">False</property>
                   </packing>
                 </child>
+                <child>
+                  <object class="GtkTable" id="table1">
+                    <property name="visible">True</property>
+                    <property name="n_rows">3</property>
+                    <property name="n_columns">3</property>
+                    <child>
+                      <object class="GtkFixed" id="fixed1">
+                        <property name="visible">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkFixed" id="fixed2">
+                        <property name="visible">True</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">2</property>
+                        <property name="right_attach">3</property>
+                        <property name="top_attach">2</property>
+                        <property name="bottom_attach">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="start_minimized">
+                        <property name="label" translatable="yes">Start minimized</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">False</property>
+                        <property name="draw_indicator">True</property>
+                        <signal name="toggled" handler="start_minimized_toggled"/>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="right_attach">2</property>
+                        <property name="top_attach">1</property>
+                        <property name="bottom_attach">2</property>
+                        <property name="x_options">GTK_EXPAND</property>
+                        <property name="y_options"></property>
+                      </packing>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="position">4</property>
+                  </packing>
+                </child>
+                <child type="tab">
+                  <object class="GtkLabel" id="label5">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">config</property>
+                  </object>
+                  <packing>
+                    <property name="position">4</property>
+                    <property name="tab_fill">False</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="position">1</property>
@@ -1019,6 +1153,19 @@ Interface:</property>
   <object class="GtkMenu" id="popup_menu">
     <property name="visible">True</property>
     <child>
+      <object class="GtkMenuItem" id="item_show_hide">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Show</property>
+        <property name="use_underline">True</property>
+        <signal name="activate" handler="show_hide"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSeparatorMenuItem" id="menuitem">
+        <property name="visible">True</property>
+      </object>
+    </child>
+    <child>
       <object class="GtkImageMenuItem" id="item_quit">
         <property name="label">gtk-close</property>
         <property name="visible">True</property>
@@ -1027,5 +1174,12 @@ Interface:</property>
         <signal name="activate" handler="quit"/>
       </object>
     </child>
+  </object>
+  <object class="GtkAdjustment" id="gmail_update_interval_adjustment">
+    <property name="value">1</property>
+    <property name="lower">1</property>
+    <property name="upper">300</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
   </object>
 </interface>

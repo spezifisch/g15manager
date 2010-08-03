@@ -89,7 +89,7 @@ def applet(user_passwd):
             "TO 0 20 0 1 \"%s\"\n" % parsed_feed.entries[0][0]
 
     else:
-        text = title + "TO 0 10 0 1 \"You have %i new mail from:\"\n" % parsed_feed.mail_count + \
+        text = title + "TO 0 10 0 1 \"You have %i new mails from:\"\n" % parsed_feed.mail_count + \
             "TO 0 20 0 1 \"%s\"\n" % parsed_feed.entries[0][0] + \
             "TO 0 28 0 1 \"%s\"\n" % parsed_feed.entries[1][0]
         if parsed_feed.mail_count > 2:
