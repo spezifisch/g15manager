@@ -13,12 +13,21 @@ setup (
     description= 'An easy way to manage the applets of a G15 keyboard and bind the G-Keys',
 
     data_files=[
+
     ('/usr/bin', ['g15manager']),
+
     ('/usr/share/g15manager' , ['g15manager.py','g15manager.ui']),
+
     ('/usr/share/g15manager/applets', ['applets/__init__.py','applets/amarok.py','applets/audacious.py',
             'applets/emesene.py','applets/exaile.py','applets/gmail.py','applets/top.py']),
-    ('/usr/share/g15manager/icons', ['icons/g15.png', 'icons/g15stats.png', 'icons/gkeys.png','icons/gmail.png','icons/config.png']),
-    ('/usr/share/applications',['g15manager.desktop'])]
 
+    ('/usr/share/g15manager/icons', ['icons/g15.png', 'icons/g15stats.png', 'icons/gkeys.png','icons/gmail.png','icons/config.png']),
+
+    ('/usr/share/applications', ['g15manager.desktop']),
+
+	('/usr/share/locale/ca/LC_MESSAGES', ['po/ca/g15manager.mo']),
+	('/usr/share/locale/es/LC_MESSAGES', ['po/es/g15manager.mo']),
+
+]
 )
 

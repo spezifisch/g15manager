@@ -422,6 +422,7 @@ Interface:</property>
                           <object class="GtkLabel" id="label10">
                             <property name="visible">True</property>
                             <property name="label" translatable="yes">Update interval (in minutes) :</property>
+                            <property name="justify">center</property>
                           </object>
                           <packing>
                             <property name="position">0</property>
