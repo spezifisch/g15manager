@@ -29,16 +29,16 @@ msgstr ""
 msgid "Enabled"
 msgstr ""
 
-msgid "Shows the Amarok's\n current track"
+msgid "Shows the Amarok's\ncurrent track"
 msgstr ""
 
-msgid "Shows the Audacious's\n current track"
+msgid "Shows the Audacious's\ncurrent track"
 msgstr ""
 
 msgid "Shows the number of unread\nmessages of Emesene"
 msgstr ""
 
-msgid "Shows the Exaile's\n current track"
+msgid "Shows the Exaile's\ncurrent track"
 msgstr ""
 
 msgid "Shows the use of CPU, memory,\nswap and network, temperatures\nand more"
@@ -47,7 +47,7 @@ msgstr ""
 msgid "Shows the unread mails\nof your Gmail account"
 msgstr ""
 
-msgid "Shows the 4 processes\n that consume more CPU"
+msgid "Shows the 4 processes\nthat consume more CPU"
 msgstr ""
 
 msgid "Update interval (in minutes) :"
