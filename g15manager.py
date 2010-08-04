@@ -60,7 +60,7 @@ class Main:
 
 	gettext.textdomain("g15manager")
 	gettext.bindtextdomain("g15manager")
-	_ = gettext.gettext
+	self._ = gettext.gettext
 
 #        import appindicator
 #        indicator = appindicator.Indicator("g15manager",
@@ -134,7 +134,7 @@ class Main:
 
         if not self.start_minimized.get_active():
             self.window.show()
-            self.item_show_hide.set_label(_("Hide"))
+            self.item_show_hide.set_label(self._("Hide"))
             self.window_is_visible = True
         else:
             self.window_is_visible = False
@@ -143,11 +143,11 @@ class Main:
     def show_hide(self, widget):
         if self.window_is_visible:
             self.window.hide()
-            self.item_show_hide.set_label(_("Show"))
+            self.item_show_hide.set_label(self._("Show"))
             self.window_is_visible = False
         else:
             self.window.present()
-            self.item_show_hide.set_label(_("Hide"))
+            self.item_show_hide.set_label(self._("Hide"))
             self.window_is_visible = True
 
 
@@ -326,19 +326,19 @@ class Main:
     def applet_info(self, widget):
         item = self.treeview.get_cursor()[0][0]
         if item == 0:
-            self.info_label.set_text(_("Shows the Amarok's\n current track"))
+            self.info_label.set_text(self._("Shows the Amarok's\ncurrent track"))
         elif item == 1:
-            self.info_label.set_text(_("Shows the Audacious's\n current track"))
+            self.info_label.set_text(self._("Shows the Audacious's\ncurrent track"))
         elif item == 2:
-            self.info_label.set_text(_("Shows the number of unread\nmessages of Emesene"))
+            self.info_label.set_text(self._("Shows the number of unread\nmessages of Emesene"))
         elif item == 3:
-            self.info_label.set_text(_("Shows the Exaile's\n current track"))
+            self.info_label.set_text(self._("Shows the Exaile's\ncurrent track"))
         elif item == 4:
-            self.info_label.set_text(_("Shows the use of CPU, memory,\nswap and network, temperatures\nand more"))
+            self.info_label.set_text(self._("Shows the use of CPU, memory,\nswap and network, temperatures\nand more"))
         elif item == 5:
-            self.info_label.set_text(_("Shows the unread mails\nof your Gmail account"))
+            self.info_label.set_text(self._("Shows the unread mails\nof your Gmail account"))
         elif item == 6:
-            self.info_label.set_text(_("Shows the 4 processes\n that consume more CPU"))
+            self.info_label.set_text(self._("Shows the 4 processes\nthat consume more CPU"))
 
 if __name__ == "__main__":
     glib.set_application_name("G15 Manager")

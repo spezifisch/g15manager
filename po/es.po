@@ -1,17 +1,16 @@
-# Catalan translations for G15 Manager package
-# Traduccions al català del paquet «G15 Manager».
-# Copyright (C) 2010 THE G15 Manager'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the G15 Manager package.
-# Nofre Móra <nodiek@gmail.com>, 2010.
+# Spanish translation for g15manager
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
+# This file is distributed under the same license as the g15manager package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: G15 Manager\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: g15manager\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-07-27 08:44+0200\n"
-"PO-Revision-Date: 2010-08-04 18:47+0000\n"
+"PO-Revision-Date: 2010-08-04 18:46+0000\n"
 "Last-Translator: Nofre Móra Sagreres <nodiek@gmail.com>\n"
-"Language-Team: Catalan\n"
+"Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,89 +18,87 @@ msgstr ""
 "X-Generator: Launchpad (build Unknown)\n"
 
 msgid "Enable"
-msgstr "Habilita"
+msgstr "Activar"
 
 msgid ""
 "Network\n"
 "Interface:"
 msgstr ""
-"Interfície\n"
-"de Xarxa:"
+"Interfaz\n"
+"de red:"
 
 msgid "Password:"
-msgstr "Contrasenya:"
+msgstr "Contraseña:"
 
 msgid "User:"
-msgstr "Usuari:"
+msgstr "Usuario:"
 
 msgid "Use Gnome Keyring to save the account"
-msgstr ""
-"Utilitzar l'anell de claus del GNOME\n"
-" per guardar les dades"
+msgstr "Utilizar Gnome Keyring para\\n guardar la cuenta"
 
 msgid "Enabled"
-msgstr "Activat"
+msgstr "Activado"
 
 msgid ""
 "Shows the Amarok's\n"
 "current track"
 msgstr ""
-"Mostra la peça actual\n"
-"de l' Amarok"
+"Muestra la pista actual\n"
+"del Amarok"
 
 msgid ""
 "Shows the Audacious's\n"
 "current track"
 msgstr ""
-"Mostra la peça actual\n"
-"de l' Audacious"
+"Muestra la pista actual\n"
+"del Audacious"
 
 msgid ""
 "Shows the number of unread\n"
 "messages of Emesene"
 msgstr ""
-"Mostra el nombre de missatges\n"
-"no llegits de l' Emesene"
+"Muestra el numero de mensajes\n"
+"no leidos del Emesene"
 
 msgid ""
 "Shows the Exaile's\n"
 "current track"
 msgstr ""
-"Mostra la peça actual\n"
-"de l' Exaile"
+"Muestra la pista actual\n"
+"del Exaile"
 
 msgid ""
 "Shows the use of CPU, memory,\n"
 "swap and network, temperatures\n"
 "and more"
 msgstr ""
-"Mostra l'us de la CPU, memòria,\n"
-"swap i xarxa, temperatures i més"
+"Muestra el uso de la CPU, memoria,\n"
+"swap i red, temperaturas i más"
 
 msgid ""
 "Shows the unread mails\n"
 "of your Gmail account"
 msgstr ""
-"Mostra els correus no llegits\n"
-"de la teva conta de Gmail"
+"Muestra los correos no leidos\n"
+"de tu cuenta de Gmail"
 
 msgid ""
 "Shows the 4 processes\n"
 "that consume more CPU"
 msgstr ""
-"Mostra els 4 processos que\n"
-"consumeixen més CPU"
+"Muestra los 4 procesos que \n"
+"consumen más CPU"
 
 msgid "Update interval (in minutes) :"
 msgstr ""
-"Interval d'actualització:\r\n"
-"(en minuts)"
+"Intervalo de actualización: \r\n"
+"(en minutos)"
 
 msgid "Start minimized"
-msgstr "Inicia minimitzat"
+msgstr "Iniciar minimizado"
 
 msgid "Show"
 msgstr "Mostrar"
 
 msgid "Hide"
-msgstr "Oculta"
+msgstr "Ocultar"
