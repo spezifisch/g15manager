@@ -1,8 +1,3 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 #, fuzzy
 msgid ""
 msgstr ""
@@ -19,9 +14,7 @@ msgstr ""
 msgid "Enable"
 msgstr ""
 
-msgid ""
-"Network\n"
-"Interface:"
+msgid "Network\nInterface:"
 msgstr ""
 
 msgid "Password:"
@@ -34,4 +27,37 @@ msgid "Use Gnome Keyring to save the account"
 msgstr ""
 
 msgid "Enabled"
+msgstr ""
+
+msgid "Shows the Amarok's\n current track"
+msgstr ""
+
+msgid "Shows the Audacious's\n current track"
+msgstr ""
+
+msgid "Shows the number of unread\nmessages of Emesene"
+msgstr ""
+
+msgid "Shows the Exaile's\n current track"
+msgstr ""
+
+msgid "Shows the use of CPU, memory,\nswap and network, temperatures\nand more"
+msgstr ""
+
+msgid "Shows the unread mails\nof your Gmail account"
+msgstr ""
+
+msgid "Shows the 4 processes\n that consume more CPU"
+msgstr ""
+
+msgid "Update interval (in minutes) :"
+msgstr ""
+
+msgid "Start minimized"
+msgstr ""
+
+msgid "Show"
+msgstr ""
+
+msgid "Hide"
 msgstr ""

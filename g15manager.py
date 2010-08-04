@@ -134,7 +134,7 @@ class Main:
 
         if not self.start_minimized.get_active():
             self.window.show()
-            self.item_show_hide.set_label("Hide")
+            self.item_show_hide.set_label(_("Hide"))
             self.window_is_visible = True
         else:
             self.window_is_visible = False
@@ -143,11 +143,11 @@ class Main:
     def show_hide(self, widget):
         if self.window_is_visible:
             self.window.hide()
-            self.item_show_hide.set_label("Show")
+            self.item_show_hide.set_label(_("Show"))
             self.window_is_visible = False
         else:
             self.window.present()
-            self.item_show_hide.set_label("Hide")
+            self.item_show_hide.set_label(_("Hide"))
             self.window_is_visible = True
 
 
