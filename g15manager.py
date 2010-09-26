@@ -304,7 +304,7 @@ class Main:
     def show_aboutdialog(self, widget):
         dialog = gtk.AboutDialog()
         dialog.set_name("G15 Manager")
-        dialog.set_version("0.2")
+        dialog.set_version("0.2.1")
         dialog.set_authors(["Nofre Móra"])
         dialog.set_website("https://launchpad.net/g15manager")
         dialog.run()

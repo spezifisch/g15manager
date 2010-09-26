@@ -103,12 +103,13 @@ def applet(user_passwd):
     return loop
 
 
-def save(user,passwd):
-    if gnomekeyring.get_info_sync("g15_manager").get_is_locked():
-        gnomekeyring.unlock_sync("g15_manager","password")
+# g15_manager keyring password: g5ty3i78T5b427Vt289B
 
-    if not "g15_manager" in gnomekeyring.list_keyring_names_sync():
-        gnomekeyring.create_sync("g15_manager","password")
+def save(user,passwd):
+
+    if gnomekeyring.get_info_sync("g15_manager").get_is_locked():
+        gnomekeyring.unlock_sync("g15_manager","g5ty3i78T5b427Vt289B")
+
     if user != "" and passwd != "":
         gnomekeyring.item_create_sync("g15_manager", gnomekeyring.ITEM_GENERIC_SECRET,user,{},passwd,True)
 
@@ -119,9 +120,11 @@ def load():
     user = ""
     passwd = ""
 
-    if gnomekeyring.get_info_sync("g15_manager").get_is_locked():
-        gnomekeyring.unlock_sync("g15_manager","password")
+    if not "g15_manager" in gnomekeyring.list_keyring_names_sync():
+        gnomekeyring.create_sync("g15_manager","g5ty3i78T5b427Vt289B")
 
+    if gnomekeyring.get_info_sync("g15_manager").get_is_locked():
+        gnomekeyring.unlock_sync("g15_manager","g5ty3i78T5b427Vt289B")
 
     if "g15_manager" in gnomekeyring.list_keyring_names_sync():
         ids = gnomekeyring.list_item_ids_sync("g15_manager")
