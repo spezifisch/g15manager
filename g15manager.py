@@ -11,6 +11,7 @@ import applets.emesene
 import applets.exaile
 import applets.gmail
 import applets.top
+import applets.rhythmbox
 import glib
 import gtk
 import gettext
@@ -76,7 +77,7 @@ class Main:
 
         #self.iconview.set_cursor(0, cell=None, start_editing=False)
 
-        self.processes = [0, 0, 0, 0, 0, 0, 0]
+        self.processes = [0, 0, 0, 0, 0, 0, 0, 0]
 
         self.gmail_update_interval.set_value(1)
 
@@ -95,7 +96,8 @@ class Main:
             self.applets.set_value(self.applets.get_iter(3), 1, self.config.getboolean("g15manager", "launch_exaile"))
             self.applets.set_value(self.applets.get_iter(4), 1, self.config.getboolean("g15manager", "launch_g15stats"))
             self.applets.set_value(self.applets.get_iter(5), 1, self.config.getboolean("g15manager", "launch_gmail"))
-            self.applets.set_value(self.applets.get_iter(6), 1, self.config.getboolean("g15manager", "launch_top"))
+            self.applets.set_value(self.applets.get_iter(6), 1, self.config.getboolean("g15manager", "launch_rhythmbox"))
+            self.applets.set_value(self.applets.get_iter(7), 1, self.config.getboolean("g15manager", "launch_top"))
 
         except:
             with open("%s/.g15manager" % os.environ["HOME"], "w") as configfile:
@@ -109,6 +111,7 @@ class Main:
             self.config.set("g15manager", "launch_gmail", False)
             self.config.set("g15manager", "launch_exaile", False)
             self.config.set("g15manager", "launch_audacious", False)
+            self.config.set("g15manager", "launch_rhythmbox", False)
             self.config.set("g15manager", "use_gk", False)
             self.config.set("g15manager", "start_minimized", False)
             self.config.set("g15manager", "gmail_update_interval", 1)
@@ -117,7 +120,7 @@ class Main:
 
         self.load_gmail()
 
-        for i in range(7):
+        for i in range(8):
             iter = self.applets.get_iter(i)
             if self.applets.get_value(iter, 1):
                 self.applets.set_value(iter, 1, False)
@@ -269,12 +272,24 @@ class Main:
         elif item == 6:
             if self.applets.get_value(iter, 1):
                 self.applets.set_value(iter, 1, False)
-                applets.top.loop = False
+                applets.rhythmbox.loop = False
                 self.processes[6].kill()
             else:
                 self.applets.set_value(iter, 1, True)
+                applets.rhythmbox.loop = True
+                self.processes[6] = applets.rhythmbox.start()
+
+            self.config.set("g15manager", "launch_rhythmbox", self.applets.get_value(iter, 1))
+
+        elif item == 7:
+            if self.applets.get_value(iter, 1):
+                self.applets.set_value(iter, 1, False)
+                applets.top.loop = False
+                self.processes[7].kill()
+            else:
+                self.applets.set_value(iter, 1, True)
                 applets.top.loop = True
-                self.processes[6] = applets.top.start()
+                self.processes[7] = applets.top.start()
 
             self.config.set("g15manager", "launch_top", self.applets.get_value(iter, 1))
 
@@ -338,6 +353,8 @@ class Main:
         elif item == 5:
             self.info_label.set_text(self._("Shows the unread mails\nof your Gmail account"))
         elif item == 6:
+            self.info_label.set_text(self._("Shows the Rhythmbox's\ncurrent track"))
+        elif item == 7:
             self.info_label.set_text(self._("Shows the 4 processes\nthat consume more CPU"))
 
 if __name__ == "__main__":

@@ -65,6 +65,10 @@
         <col id="1">False</col>
       </row>
       <row>
+        <col id="0" translatable="yes">Rhythmbox</col>
+        <col id="1">False</col>
+      </row>
+      <row>
         <col id="0" translatable="yes">Process Monitor</col>
         <col id="1">False</col>
       </row>
