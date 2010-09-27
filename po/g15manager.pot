@@ -61,3 +61,6 @@ msgstr ""
 
 msgid "Hide"
 msgstr ""
+
+msgid "Shows the Rhythmbox's\ncurrent track"
+msgstr ""

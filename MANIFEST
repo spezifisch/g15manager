@@ -6,6 +6,7 @@ applets/audacious.py
 applets/emesene.py
 applets/exaile.py
 applets/gmail.py
+applets/rhythmbox.py
 applets/top.py
 g15manager.ui
 icons/g15.png

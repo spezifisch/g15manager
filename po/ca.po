@@ -105,3 +105,10 @@ msgstr "Mostrar"
 
 msgid "Hide"
 msgstr "Oculta"
+
+msgid ""
+"Shows the Rhythmbox's\n"
+"current track"
+msgstr ""
+"Mostra la peça actual\n"
+"del Rhythmbox"
