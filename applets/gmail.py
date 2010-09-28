@@ -128,6 +128,7 @@ def load():
 
     if "g15_manager" in gnomekeyring.list_keyring_names_sync():
         ids = gnomekeyring.list_item_ids_sync("g15_manager")
+        
         if len(ids):
             item = gnomekeyring.item_get_info_sync("g15_manager", ids[0])
             user = item.get_display_name()

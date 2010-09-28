@@ -4,6 +4,8 @@ import ConfigParser
 import ctypes
 import os
 import subprocess
+import socket
+
 
 import applets.amarok
 import applets.audacious
@@ -12,10 +14,12 @@ import applets.exaile
 import applets.gmail
 import applets.top
 import applets.rhythmbox
+import keys
 import glib
 import gtk
+import gobject
 import gettext
-import keybinder
+
 
 class Main:
     def __init__(self):
@@ -45,19 +49,6 @@ class Main:
         self.command_g4 = builder.get_object("command_g4")
         self.command_g5 = builder.get_object("command_g5")
         self.command_g6 = builder.get_object("command_g6")
-        self.command_g7 = builder.get_object("command_g7")
-        self.command_g8 = builder.get_object("command_g8")
-        self.command_g9 = builder.get_object("command_g9")
-        self.command_g10 = builder.get_object("command_g10")
-        self.command_g11 = builder.get_object("command_g11")
-        self.command_g12 = builder.get_object("command_g12")
-        self.command_g13 = builder.get_object("command_g13")
-        self.command_g14 = builder.get_object("command_g14")
-        self.command_g15 = builder.get_object("command_g15")
-        self.command_g16 = builder.get_object("command_g16")
-        self.command_g17 = builder.get_object("command_g17")
-        self.command_g18 = builder.get_object("command_g18")
-
 
 	gettext.textdomain("g15manager")
 	gettext.bindtextdomain("g15manager")
@@ -127,13 +118,6 @@ class Main:
                 self.toggle_applet(None, i)
 
 
-        self.keys = [["G1",self.command_g1], ["G2",self.command_g2], ["G3",self.command_g3],
-                    ["G4",self.command_g4], ["G5",self.command_g5], ["G6",self.command_g6],
-                    ["G7",self.command_g7], ["G8",self.command_g8], ["G9",self.command_g9],
-                    ["G10",self.command_g10], ["G11",self.command_g11], ["G12",self.command_g12],
-                    ["G13",self.command_g13], ["G14",self.command_g14], ["G15",self.command_g15],
-                    ["G16",self.command_g16], ["G17",self.command_g17], ["G18",self.command_g18]]
-
 
         if not self.start_minimized.get_active():
             self.window.show()
@@ -141,6 +125,18 @@ class Main:
             self.window_is_visible = True
         else:
             self.window_is_visible = False
+
+
+        self.commands = [self.command_g1,self.command_g2, self.command_g3,
+                        self.command_g4, self.command_g5,self.command_g6]
+
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socket.connect(("localhost", 15550))
+        if self.socket.recv(16) != "G15 daemon HELLO":
+            raise Exception("Communication error with server")
+        self.socket.setblocking(0)
+
+        gobject.timeout_add(50, keys.catch_keys, self.socket,self.commands)
 
 
     def show_hide(self, widget):
@@ -169,25 +165,6 @@ class Main:
         self.show_hide(widget)
         return True
 
-
-    def enable_bindings_toggled(self, widget):
-        if self.enable_bindings.get_active():
-            for key in self.keys:
-                keybinder.bind(key[0], self.key_pressed, key[0])
-        else:
-            for key in self.keys:
-                keybinder.unbind(key[0])
-
-
-    def key_pressed(self, pressed_key):
-        if self.enable_bindings.get_active():
-            for key in self.keys:
-                if pressed_key == key[0]:
-                    command = key[1].get_text().split(" ")
-                    command_list = []
-                    for arg in command:
-                        command_list.append(arg)
-                    subprocess.Popen(command_list)
 
 
     def change_page(self, widget):
@@ -356,6 +333,7 @@ class Main:
             self.info_label.set_text(self._("Shows the Rhythmbox's\ncurrent track"))
         elif item == 7:
             self.info_label.set_text(self._("Shows the 4 processes\nthat consume more CPU"))
+
 
 if __name__ == "__main__":
     glib.set_application_name("G15 Manager")
