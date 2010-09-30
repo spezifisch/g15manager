@@ -1,24 +1,17 @@
 # coding: UTF-8
 
-import ConfigParser
 import ctypes
-import os
 import subprocess
 import socket
 
 
-import applets.amarok
-import applets.audacious
-import applets.emesene
-import applets.exaile
-import applets.gmail
-import applets.top
-import applets.rhythmbox
+import applets
 import keys
 import glib
 import gtk
 import gobject
 import gettext
+import gconf
 
 
 class Main:
@@ -29,10 +22,11 @@ class Main:
         builder.connect_signals(self)
 
         self.window = builder.get_object("window")
+        self.gmail_save = builder.get_object("gmail_save")
         self.gmail_user = builder.get_object("gmail_user")
         self.gmail_passwd = builder.get_object("gmail_passwd")
         self.gmail_update_interval = builder.get_object("gmail_update_interval")
-        self.g15stats_interface = builder.get_object("g15stats_interface")     
+        self.network_interface = builder.get_object("network_interface")
         self.popup_menu = builder.get_object("popup_menu")
         self.iconview = builder.get_object("iconview")
         self.notebook = builder.get_object("notebook")
@@ -40,25 +34,17 @@ class Main:
         self.treeview = builder.get_object("treeview")
         self.info_label = builder.get_object("info_label")
         self.use_gk = builder.get_object("use_gk")
-        self.enable_bindings = builder.get_object("enable_bindings")
+        self.toggle_bindings = builder.get_object("toggle_bindings")
         self.start_minimized = builder.get_object("start_minimized")
         self.item_show_hide = builder.get_object("item_show_hide")    
-        self.command_g1 = builder.get_object("command_g1")
-        self.command_g2 = builder.get_object("command_g2")
-        self.command_g3 = builder.get_object("command_g3")
-        self.command_g4 = builder.get_object("command_g4")
-        self.command_g5 = builder.get_object("command_g5")
-        self.command_g6 = builder.get_object("command_g6")
+        self.keys = builder.get_object("keys")
+        self.keys_treeview = builder.get_object("keys_treeview")
+
 
 	gettext.textdomain("g15manager")
 	gettext.bindtextdomain("g15manager")
 	self._ = gettext.gettext
 
-#        import appindicator
-#        indicator = appindicator.Indicator("g15manager",
-#                "distributor-logo", appindicator.CATEGORY_APPLICATION_STATUS)
-#        indicator.set_status (appindicator.STATUS_ACTIVE)
-#        indicator.set_menu(self.popup_menu)
 
         self.statusicon = gtk.StatusIcon()
         self.statusicon.set_from_file("icons/g15.png")
@@ -70,46 +56,31 @@ class Main:
 
         self.processes = [0, 0, 0, 0, 0, 0, 0, 0]
 
-        self.gmail_update_interval.set_value(1)
 
-        self.config = ConfigParser.ConfigParser()
-        try:
-            self.config.read("%s/.g15manager" % os.environ["HOME"])
+        self.config = gconf.client_get_default()
 
-            self.g15stats_interface.set_text(self.config.get("g15manager", "g15stats_interface"))
-            self.gmail_update_interval.set_value(self.config.getint("g15manager", "gmail_update_interval"))
-            self.use_gk.set_active(self.config.getboolean("g15manager", "use_gk"))
-            self.start_minimized.set_active(self.config.getboolean("g15manager", "start_minimized"))
+        if self.config.get_string("/apps/g15manager/network_interface"):
+            self.network_interface.set_text(self.config.get_string("/apps/g15manager/network_interface"))
 
-            self.applets.set_value(self.applets.get_iter(0), 1, self.config.getboolean("g15manager", "launch_amarok"))
-            self.applets.set_value(self.applets.get_iter(1), 1, self.config.getboolean("g15manager", "launch_audacious"))
-            self.applets.set_value(self.applets.get_iter(2), 1, self.config.getboolean("g15manager", "launch_emesene"))
-            self.applets.set_value(self.applets.get_iter(3), 1, self.config.getboolean("g15manager", "launch_exaile"))
-            self.applets.set_value(self.applets.get_iter(4), 1, self.config.getboolean("g15manager", "launch_g15stats"))
-            self.applets.set_value(self.applets.get_iter(5), 1, self.config.getboolean("g15manager", "launch_gmail"))
-            self.applets.set_value(self.applets.get_iter(6), 1, self.config.getboolean("g15manager", "launch_rhythmbox"))
-            self.applets.set_value(self.applets.get_iter(7), 1, self.config.getboolean("g15manager", "launch_top"))
+        if 0 < self.config.get_int("/apps/g15manager/gmail/update_interval"):
+            self.gmail_update_interval.set_value(self.config.get_int("/apps/g15manager/gmail/update_interval"))
+        else:
+            self.gmail_update_interval.set_value(1)
 
-        except:
-            with open("%s/.g15manager" % os.environ["HOME"], "w") as configfile:
-                configfile.write("[g15manager]")
-            self.config.read("%s/.g15manager" % os.environ["HOME"])
-            self.config.set("g15manager", "launch_g15stats", False)
-            self.config.set("g15manager", "g15stats_interface", "")
-            self.config.set("g15manager", "launch_amarok", False)
-            self.config.set("g15manager", "launch_top", False)
-            self.config.set("g15manager", "launch_emesene", False)
-            self.config.set("g15manager", "launch_gmail", False)
-            self.config.set("g15manager", "launch_exaile", False)
-            self.config.set("g15manager", "launch_audacious", False)
-            self.config.set("g15manager", "launch_rhythmbox", False)
-            self.config.set("g15manager", "use_gk", False)
-            self.config.set("g15manager", "start_minimized", False)
-            self.config.set("g15manager", "gmail_update_interval", 1)
-            with open("%s/.g15manager" % os.environ["HOME"], "w") as configfile:
-                self.config.write(configfile)
 
-        self.load_gmail()
+        self.use_gk.set_active(self.config.get_bool("/apps/g15manager/gmail/gnomekeyring"))
+        self.start_minimized.set_active(self.config.get_bool("/apps/g15manager/start_minimized"))
+
+        self.applets.set_value(self.applets.get_iter(0), 1, self.config.get_bool("/apps/g15manager/startup/amarok"))
+        self.applets.set_value(self.applets.get_iter(1), 1, self.config.get_bool("/apps/g15manager/startup/audacious"))
+        self.applets.set_value(self.applets.get_iter(2), 1, self.config.get_bool("/apps/g15manager/startup/emesene"))
+        self.applets.set_value(self.applets.get_iter(3), 1, self.config.get_bool("/apps/g15manager/startup/exaile"))
+        self.applets.set_value(self.applets.get_iter(4), 1, self.config.get_bool("/apps/g15manager/startup/g15stats"))
+        self.applets.set_value(self.applets.get_iter(5), 1, self.config.get_bool("/apps/g15manager/startup/gmail"))
+        self.applets.set_value(self.applets.get_iter(6), 1, self.config.get_bool("/apps/g15manager/startup/rhythmbox"))
+        self.applets.set_value(self.applets.get_iter(7), 1, self.config.get_bool("/apps/g15manager/startup/process_monitor"))
+
+
 
         for i in range(8):
             iter = self.applets.get_iter(i)
@@ -127,16 +98,13 @@ class Main:
             self.window_is_visible = False
 
 
-        self.commands = [self.command_g1,self.command_g2, self.command_g3,
-                        self.command_g4, self.command_g5,self.command_g6]
-
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.connect(("localhost", 15550))
         if self.socket.recv(16) != "G15 daemon HELLO":
             raise Exception("Communication error with server")
         self.socket.setblocking(0)
 
-        gobject.timeout_add(50, keys.catch_keys, self.socket,self.commands)
+        gobject.timeout_add(50, keys.catch_keys, self.socket,self.keys, self.toggle_bindings)
 
 
     def show_hide(self, widget):
@@ -166,6 +134,10 @@ class Main:
         return True
 
 
+    def keys_command_edited(self, widget, item, text):
+        iter = self.keys.get_iter(int(item))
+        self.keys.set_value(iter, 1, text)
+
 
     def change_page(self, widget):
         self.notebook.set_current_page(self.iconview.get_selected_items()[0][0])
@@ -185,7 +157,7 @@ class Main:
                 applets.amarok.loop = True
                 self.processes[0] = applets.amarok.start()
 
-            self.config.set("g15manager", "launch_amarok", self.applets.get_value(iter, 1))
+            self.config.set_bool("/apps/g15manager/startup/amarok", self.applets.get_value(iter, 1))
 
         elif item == 1:
             if self.applets.get_value(iter, 1):
@@ -197,7 +169,7 @@ class Main:
                 applets.audacious.loop = True
                 self.processes[1] = applets.audacious.start()
 
-            self.config.set("g15manager", "launch_audacious", self.applets.get_value(iter, 1))
+            self.config.set_bool("/apps/g15manager/startup/audacious", self.applets.get_value(iter, 1))
 
         elif item == 2:
             if self.applets.get_value(iter, 1):
@@ -209,7 +181,7 @@ class Main:
                 applets.emesene.loop = True
                 self.processes[2] = applets.emesene.start()
 
-            self.config.set("g15manager", "launch_emesene", self.applets.get_value(iter, 1))
+            self.config.set_bool("/apps/g15manager/startup/emesene", self.applets.get_value(iter, 1))
 
         elif item == 3:
             if self.applets.get_value(iter, 1):
@@ -221,7 +193,7 @@ class Main:
                 applets.exaile.loop = True
                 self.processes[3] = applets.exaile.start()
 
-            self.config.set("g15manager", "launch_exaile", self.applets.get_value(iter, 1))
+            self.config.set_bool("/apps/g15manager/startup/exaile", self.applets.get_value(iter, 1))
 
         elif item == 4:
             if self.applets.get_value(iter, 1):
@@ -229,10 +201,10 @@ class Main:
                 self.processes[4].kill()
             else:
                 self.applets.set_value(iter, 1, True)
-                self.processes[4] = subprocess.Popen(["g15stats", "-i", self.g15stats_interface.get_text()])
+                self.processes[4] = subprocess.Popen(["g15stats", "-i", self.network_interface.get_text()])
 
-            self.config.set("g15manager", "launch_g15stats", self.applets.get_value(iter, 1))
-            self.config.set("g15manager", "g15stats_interface", self.g15stats_interface.get_text())
+            self.config.set_bool("/apps/g15manager/startup/g15stats", self.applets.get_value(iter, 1))
+            self.config.set_string("/apps/g15manager/network_interface", self.network_interface.get_text())
 
         elif item == 5:
             if self.applets.get_value(iter, 1):
@@ -244,7 +216,7 @@ class Main:
                 applets.gmail.loop = True
                 self.processes[5] = applets.gmail.start(self.gmail_user.get_text(), self.gmail_passwd.get_text(), self.gmail_update_interval.get_value_as_int())
 
-            self.config.set("g15manager", "launch_gmail", self.applets.get_value(iter, 1))
+            self.config.set_bool("/apps/g15manager/startup/gmail", self.applets.get_value(iter, 1))
 
         elif item == 6:
             if self.applets.get_value(iter, 1):
@@ -256,7 +228,7 @@ class Main:
                 applets.rhythmbox.loop = True
                 self.processes[6] = applets.rhythmbox.start()
 
-            self.config.set("g15manager", "launch_rhythmbox", self.applets.get_value(iter, 1))
+            self.config.set_bool("/apps/g15manager/startup/rhythmbox", self.applets.get_value(iter, 1))
 
         elif item == 7:
             if self.applets.get_value(iter, 1):
@@ -268,29 +240,17 @@ class Main:
                 applets.top.loop = True
                 self.processes[7] = applets.top.start()
 
-            self.config.set("g15manager", "launch_top", self.applets.get_value(iter, 1))
+            self.config.set_bool("/apps/g15manager/startup/process_monitor", self.applets.get_value(iter, 1))
 
-
-        with open("%s/.g15manager" % os.environ["HOME"], "w") as configfile:
-            self.config.write(configfile)
 
 
     def save_gmail(self, widget):
         if self.use_gk.get_active():
             applets.gmail.save(self.gmail_user.get_text(), self.gmail_passwd.get_text())
 
-        self.config.set("g15manager", "gmail_update_interval", self.gmail_update_interval.get_value_as_int())
-        with open("%s/.g15manager" % os.environ["HOME"], "w") as configfile:
-            self.config.write(configfile)
 
-        print self.gmail_update_interval.get_value_as_int()
-
-
-    def load_gmail(self):
-        if self.use_gk.get_active():
-            user, passwd = applets.gmail.load()
-            self.gmail_user.set_text(user)
-            self.gmail_passwd.set_text(passwd)
+    def gmail_update_interval_value_changed(self, widget):
+        self.config.set_int("/apps/g15manager/gmail/update_interval", self.gmail_update_interval.get_value_as_int())
 
 
     def show_aboutdialog(self, widget):
@@ -303,16 +263,22 @@ class Main:
         dialog.destroy()
 
     def use_gk_toggled(self, widget):
-        self.config.set("g15manager", "use_gk", self.use_gk.get_active())
-        with open("%s/.g15manager" % os.environ["HOME"], "w") as configfile:
-            self.config.write(configfile)
-        self.load_gmail()
+        if self.use_gk.get_active():
+            self.gmail_save.show()
+
+            user, passwd = applets.gmail.load()
+            self.gmail_user.set_text(user)
+            self.gmail_passwd.set_text(passwd)
+
+        else:
+            self.gmail_save.hide()
+
+        self.config.set_bool("/apps/g15manager/gmail/gnomekeyring", self.use_gk.get_active())
+
 
 
     def start_minimized_toggled(self, widget):
-        self.config.set("g15manager", "start_minimized", self.start_minimized.get_active())
-        with open("%s/.g15manager" % os.environ["HOME"], "w") as configfile:
-            self.config.write(configfile)
+        self.config.set_bool("/apps/g15manager/start_minimized", self.start_minimized.get_active())
 
 
     def applet_info(self, widget):

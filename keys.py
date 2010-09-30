@@ -2,11 +2,12 @@ import struct
 import subprocess
 
 
-keys=[("G1", 1), ("G2", 2), ("G3", 4), ("G4", 8), ("G5", 16), ("G6", 32),
-        ("M1", 262144), ("M2", 524288), ("M3", 1048576), ("MR", 2097152),
-        ("L1", 8388608), ("L2", 16777216), ("L3", 33554432), ("L4", 67108864)]
+keys_list={1:0, 2:1, 4:2, 8:3, 16:4, 32:5, 262144:"M1",
+            524288:"M2", 1048576:"M3", 2097152:"MR", 8388608:"L1", 16777216:"L2",
+            33554432:"L3", 67108864:"L4"}
 
-def catch_keys(g15socket,commands):
+
+def catch_keys(g15socket,keys, toggle_bindings):
     try:
         recv = g15socket.recv(1024)
         key = struct.unpack("i", recv)[0]
@@ -14,19 +15,16 @@ def catch_keys(g15socket,commands):
         return True
 
 
-    if 1 <= key <= 32:
-        print key
-        for i in range(6):
-            if key == keys[i][1]:
-                command = commands[i].get_text().split(" ")
-                command_list = []
-                for arg in command:
-                    command_list.append(arg)
+    if 1 <= key <= 32 and toggle_bindings.get_active():
 
-                try:
-                    subprocess.Popen(command_list)
-                except:
-                    pass
+        iter = keys.get_iter(keys_list[key])
+        
+        command = keys.get_value(iter, 1).split(" ")
+
+        try:
+            subprocess.Popen(command)
+        except:
+            pass
 
 
     return True
