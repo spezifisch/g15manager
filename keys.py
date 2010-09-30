@@ -7,7 +7,7 @@ keys_list={1:0, 2:1, 4:2, 8:3, 16:4, 32:5, 262144:"M1",
             33554432:"L3", 67108864:"L4"}
 
 
-def catch_keys(g15socket,keys, toggle_bindings):
+def catch_keys(g15socket, bindings, keys_m1, keys_m2, keys_m3, m1, m2, m3 ):
     try:
         recv = g15socket.recv(1024)
         key = struct.unpack("i", recv)[0]
@@ -15,11 +15,18 @@ def catch_keys(g15socket,keys, toggle_bindings):
         return True
 
 
-    if 1 <= key <= 32 and toggle_bindings.get_active():
+    if 1 <= key <= 32 and bindings.get_active():
 
-        iter = keys.get_iter(keys_list[key])
-        
-        command = keys.get_value(iter, 1).split(" ")
+        if m1:
+            iter = keys_m1.get_iter(keys_list[key])
+            command = keys_m1.get_value(iter, 1).split(" ")
+        elif m2:
+            iter = keys_m2.get_iter(keys_list[key])        
+            command = keys_m2.get_value(iter, 1).split(" ")
+        elif m3:
+            iter = keys_m3.get_iter(keys_list[key])
+            command = keys_m3.get_value(iter, 1).split(" ")
+
 
         try:
             subprocess.Popen(command)

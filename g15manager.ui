@@ -74,21 +74,13 @@
       </row>
     </data>
   </object>
-  <object class="GtkListStore" id="keys">
+  <object class="GtkListStore" id="keys_m1">
     <columns>
       <!-- column-name keys -->
       <column type="gchararray"/>
-      <!-- column-name commands-m1 -->
+      <!-- column-name command -->
       <column type="gchararray"/>
-      <!-- column-name text-m1 -->
-      <column type="gboolean"/>
-      <!-- column-name commands-m2 -->
-      <column type="gchararray"/>
-      <!-- column-name text-m2 -->
-      <column type="gboolean"/>
-      <!-- column-name commands-m3 -->
-      <column type="gchararray"/>
-      <!-- column-name text-m3 -->
+      <!-- column-name text-input -->
       <column type="gboolean"/>
     </columns>
     <data>
@@ -96,55 +88,115 @@
         <col id="0" translatable="yes">G1</col>
         <col id="1" translatable="yes"></col>
         <col id="2">False</col>
-        <col id="3" translatable="yes"></col>
-        <col id="4">False</col>
-        <col id="5" translatable="yes"></col>
-        <col id="6">False</col>
       </row>
       <row>
         <col id="0" translatable="yes">G2</col>
         <col id="1" translatable="yes"></col>
         <col id="2">False</col>
-        <col id="3" translatable="yes"></col>
-        <col id="4">False</col>
-        <col id="5" translatable="yes"></col>
-        <col id="6">False</col>
       </row>
       <row>
         <col id="0" translatable="yes">G3</col>
         <col id="1" translatable="yes"></col>
         <col id="2">False</col>
-        <col id="3" translatable="yes"></col>
-        <col id="4">False</col>
-        <col id="5" translatable="yes"></col>
-        <col id="6">False</col>
       </row>
       <row>
         <col id="0" translatable="yes">G4</col>
         <col id="1" translatable="yes"></col>
         <col id="2">False</col>
-        <col id="3" translatable="yes"></col>
-        <col id="4">False</col>
-        <col id="5" translatable="yes"></col>
-        <col id="6">False</col>
       </row>
       <row>
         <col id="0" translatable="yes">G5</col>
         <col id="1" translatable="yes"></col>
         <col id="2">False</col>
-        <col id="3" translatable="yes"></col>
-        <col id="4">False</col>
-        <col id="5" translatable="yes"></col>
-        <col id="6">False</col>
       </row>
       <row>
         <col id="0" translatable="yes">G6</col>
         <col id="1" translatable="yes"></col>
         <col id="2">False</col>
-        <col id="3" translatable="yes"></col>
-        <col id="4">False</col>
-        <col id="5" translatable="yes"></col>
-        <col id="6">False</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkListStore" id="keys_m3">
+    <columns>
+      <!-- column-name keys -->
+      <column type="gchararray"/>
+      <!-- column-name command -->
+      <column type="gchararray"/>
+      <!-- column-name text-input -->
+      <column type="gboolean"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">G1</col>
+        <col id="1" translatable="yes"></col>
+        <col id="2">False</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">G2</col>
+        <col id="1" translatable="yes"></col>
+        <col id="2">False</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">G3</col>
+        <col id="1" translatable="yes"></col>
+        <col id="2">False</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">G4</col>
+        <col id="1" translatable="yes"></col>
+        <col id="2">False</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">G5</col>
+        <col id="1" translatable="yes"></col>
+        <col id="2">False</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">G6</col>
+        <col id="1" translatable="yes"></col>
+        <col id="2">False</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkListStore" id="keys_m2">
+    <columns>
+      <!-- column-name keys -->
+      <column type="gchararray"/>
+      <!-- column-name command -->
+      <column type="gchararray"/>
+      <!-- column-name text-input -->
+      <column type="gboolean"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">G1</col>
+        <col id="1" translatable="yes"></col>
+        <col id="2">False</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">G2</col>
+        <col id="1" translatable="yes"></col>
+        <col id="2">False</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">G3</col>
+        <col id="1" translatable="yes"></col>
+        <col id="2">False</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">G4</col>
+        <col id="1" translatable="yes"></col>
+        <col id="2">False</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">G5</col>
+        <col id="1" translatable="yes"></col>
+        <col id="2">False</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">G6</col>
+        <col id="1" translatable="yes"></col>
+        <col id="2">False</col>
       </row>
     </data>
   </object>
@@ -570,6 +622,7 @@ Interface:</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="draw_indicator">True</property>
+                            <signal name="toggled" handler="toggle_bindings_toggled"/>
                           </object>
                           <packing>
                             <property name="right_attach">3</property>
@@ -583,10 +636,10 @@ Interface:</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
-                            <property name="xalign">0.4699999988079071</property>
                             <property name="active">True</property>
                             <property name="draw_indicator">True</property>
                             <property name="group">rb_m2</property>
+                            <signal name="toggled" handler="memory_changed"/>
                           </object>
                           <packing>
                             <property name="top_attach">1</property>
@@ -600,9 +653,9 @@ Interface:</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
-                            <property name="active">True</property>
                             <property name="draw_indicator">True</property>
                             <property name="group">rb_m1</property>
+                            <signal name="toggled" handler="memory_changed"/>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -618,9 +671,9 @@ Interface:</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
-                            <property name="active">True</property>
                             <property name="draw_indicator">True</property>
-                            <property name="group">rb_m1</property>
+                            <property name="group">rb_m2</property>
+                            <signal name="toggled" handler="memory_changed"/>
                           </object>
                           <packing>
                             <property name="left_attach">2</property>
@@ -650,7 +703,7 @@ Interface:</property>
                       <object class="GtkTreeView" id="keys_treeview">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="model">keys</property>
+                        <property name="model">keys_m1</property>
                         <child>
                           <object class="GtkTreeViewColumn" id="keys_column1">
                             <property name="title">Key</property>

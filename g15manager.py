@@ -37,8 +37,15 @@ class Main:
         self.toggle_bindings = builder.get_object("toggle_bindings")
         self.start_minimized = builder.get_object("start_minimized")
         self.item_show_hide = builder.get_object("item_show_hide")    
-        self.keys = builder.get_object("keys")
+        self.keys_m1 = builder.get_object("keys_m1")
+        self.keys_m2 = builder.get_object("keys_m2")
+        self.keys_m3 = builder.get_object("keys_m3")
         self.keys_treeview = builder.get_object("keys_treeview")
+        self.rb_m1 = builder.get_object("rb_m1")
+        self.rb_m2 = builder.get_object("rb_m2")
+        self.rb_m3 = builder.get_object("rb_m3")
+        self.keys_renderer2 = builder.get_object("keys_renderer2")
+        self.keys_renderer3 = builder.get_object("keys_renderer3")
 
 
 	gettext.textdomain("g15manager")
@@ -70,6 +77,7 @@ class Main:
 
         self.use_gk.set_active(self.config.get_bool("/apps/g15manager/gmail/gnomekeyring"))
         self.start_minimized.set_active(self.config.get_bool("/apps/g15manager/start_minimized"))
+        self.toggle_bindings.set_active(self.config.get_bool("/apps/g15manager/bindings"))
 
         self.applets.set_value(self.applets.get_iter(0), 1, self.config.get_bool("/apps/g15manager/startup/amarok"))
         self.applets.set_value(self.applets.get_iter(1), 1, self.config.get_bool("/apps/g15manager/startup/audacious"))
@@ -79,6 +87,30 @@ class Main:
         self.applets.set_value(self.applets.get_iter(5), 1, self.config.get_bool("/apps/g15manager/startup/gmail"))
         self.applets.set_value(self.applets.get_iter(6), 1, self.config.get_bool("/apps/g15manager/startup/rhythmbox"))
         self.applets.set_value(self.applets.get_iter(7), 1, self.config.get_bool("/apps/g15manager/startup/process_monitor"))
+
+
+
+        self.keys_m1.set_value(self.keys_m1.get_iter(0), 1, self.config.get_string("/apps/g15manager/commands/M1/G1"))
+        self.keys_m1.set_value(self.keys_m1.get_iter(1), 1, self.config.get_string("/apps/g15manager/commands/M1/G2"))
+        self.keys_m1.set_value(self.keys_m1.get_iter(2), 1, self.config.get_string("/apps/g15manager/commands/M1/G3"))
+        self.keys_m1.set_value(self.keys_m1.get_iter(3), 1, self.config.get_string("/apps/g15manager/commands/M1/G4"))
+        self.keys_m1.set_value(self.keys_m1.get_iter(4), 1, self.config.get_string("/apps/g15manager/commands/M1/G5"))
+        self.keys_m1.set_value(self.keys_m1.get_iter(5), 1, self.config.get_string("/apps/g15manager/commands/M1/G6"))
+
+        self.keys_m2.set_value(self.keys_m2.get_iter(0), 1, self.config.get_string("/apps/g15manager/commands/M2/G1"))
+        self.keys_m2.set_value(self.keys_m2.get_iter(1), 1, self.config.get_string("/apps/g15manager/commands/M2/G2"))
+        self.keys_m2.set_value(self.keys_m2.get_iter(2), 1, self.config.get_string("/apps/g15manager/commands/M2/G3"))
+        self.keys_m2.set_value(self.keys_m2.get_iter(3), 1, self.config.get_string("/apps/g15manager/commands/M2/G4"))
+        self.keys_m2.set_value(self.keys_m2.get_iter(4), 1, self.config.get_string("/apps/g15manager/commands/M2/G5"))
+        self.keys_m2.set_value(self.keys_m2.get_iter(5), 1, self.config.get_string("/apps/g15manager/commands/M2/G6"))
+
+        self.keys_m3.set_value(self.keys_m3.get_iter(0), 1, self.config.get_string("/apps/g15manager/commands/M3/G1"))
+        self.keys_m3.set_value(self.keys_m3.get_iter(1), 1, self.config.get_string("/apps/g15manager/commands/M3/G2"))
+        self.keys_m3.set_value(self.keys_m3.get_iter(2), 1, self.config.get_string("/apps/g15manager/commands/M3/G3"))
+        self.keys_m3.set_value(self.keys_m3.get_iter(3), 1, self.config.get_string("/apps/g15manager/commands/M3/G4"))
+        self.keys_m3.set_value(self.keys_m3.get_iter(4), 1, self.config.get_string("/apps/g15manager/commands/M3/G5"))
+        self.keys_m3.set_value(self.keys_m3.get_iter(5), 1, self.config.get_string("/apps/g15manager/commands/M3/G6"))
+
 
 
 
@@ -104,7 +136,11 @@ class Main:
             raise Exception("Communication error with server")
         self.socket.setblocking(0)
 
-        gobject.timeout_add(50, keys.catch_keys, self.socket,self.keys, self.toggle_bindings)
+        self.rb_m1.set_active(True)
+
+        gobject.timeout_add(50, keys.catch_keys, self.socket, self.toggle_bindings,
+                self.keys_m1, self.keys_m2, self.keys_m3,
+                self.rb_m1.get_active(), self.rb_m2.get_active(), self.rb_m3.get_active())
 
 
     def show_hide(self, widget):
@@ -134,9 +170,34 @@ class Main:
         return True
 
 
+    def memory_changed(self, widget):
+        if self.rb_m1.get_active():
+            self.keys_treeview.set_model(self.keys_m1)
+
+        elif self.rb_m2.get_active():
+            self.keys_treeview.set_model(self.keys_m2)
+
+        elif self.rb_m3.get_active():
+            self.keys_treeview.set_model(self.keys_m3)
+
+
+
     def keys_command_edited(self, widget, item, text):
-        iter = self.keys.get_iter(int(item))
-        self.keys.set_value(iter, 1, text)
+        if self.rb_m1.get_active():
+            iter = self.keys_m1.get_iter(int(item))
+            self.keys_m1.set_value(iter, 1, text)
+            self.config.set_string("/apps/g15manager/commands/M1/G%i" % (int(item)+1), self.keys_m1.get_value(iter, 1))
+
+        elif self.rb_m2.get_active():
+            iter = self.keys_m2.get_iter(int(item))
+            self.keys_m2.set_value(iter, 1, text)
+            self.config.set_string("/apps/g15manager/commands/M2/G%i" % (int(item)+1), self.keys_m2.get_value(iter, 1))
+
+        elif self.rb_m3.get_active():
+            iter = self.keys_m3.get_iter(int(item))
+            self.keys_m3.set_value(iter, 1, text)
+            self.config.set_string("/apps/g15manager/commands/M3/G%i" % (int(item)+1), self.keys_m3.get_value(iter, 1))
+
 
 
     def change_page(self, widget):
@@ -256,7 +317,7 @@ class Main:
     def show_aboutdialog(self, widget):
         dialog = gtk.AboutDialog()
         dialog.set_name("G15 Manager")
-        dialog.set_version("0.2.1")
+        dialog.set_version("0.3")
         dialog.set_authors(["Nofre Móra"])
         dialog.set_website("https://launchpad.net/g15manager")
         dialog.run()
@@ -275,6 +336,9 @@ class Main:
 
         self.config.set_bool("/apps/g15manager/gmail/gnomekeyring", self.use_gk.get_active())
 
+
+    def toggle_bindings_toggled(self, widget):
+        self.config.set_bool("/apps/g15manager/bindings", self.toggle_bindings.get_active())
 
 
     def start_minimized_toggled(self, widget):
