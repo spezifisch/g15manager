@@ -4,7 +4,7 @@ import gobject
 def start():
     process = subprocess.Popen(["g15composer","/tmp/g15manager-top"])
     applet()
-    gobject.timeout_add(3000, applet)
+    gobject.timeout_add(2000, applet)
     return process
 
 def applet():

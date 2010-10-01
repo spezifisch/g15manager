@@ -74,7 +74,7 @@
       </row>
     </data>
   </object>
-  <object class="GtkListStore" id="keys_m1">
+  <object class="GtkListStore" id="m1_commands">
     <columns>
       <!-- column-name keys -->
       <column type="gchararray"/>
@@ -116,7 +116,7 @@
       </row>
     </data>
   </object>
-  <object class="GtkListStore" id="keys_m3">
+  <object class="GtkListStore" id="m3_commands">
     <columns>
       <!-- column-name keys -->
       <column type="gchararray"/>
@@ -158,7 +158,7 @@
       </row>
     </data>
   </object>
-  <object class="GtkListStore" id="keys_m2">
+  <object class="GtkListStore" id="m2_commands">
     <columns>
       <!-- column-name keys -->
       <column type="gchararray"/>
@@ -631,14 +631,14 @@ Interface:</property>
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkRadioButton" id="rb_m1">
+                          <object class="GtkRadioButton" id="m1">
                             <property name="label" translatable="yes">M1</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="active">True</property>
                             <property name="draw_indicator">True</property>
-                            <property name="group">rb_m2</property>
+                            <property name="group">m2</property>
                             <signal name="toggled" handler="memory_changed"/>
                           </object>
                           <packing>
@@ -648,13 +648,13 @@ Interface:</property>
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkRadioButton" id="rb_m2">
+                          <object class="GtkRadioButton" id="m2">
                             <property name="label" translatable="yes">M2</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="draw_indicator">True</property>
-                            <property name="group">rb_m1</property>
+                            <property name="group">m1</property>
                             <signal name="toggled" handler="memory_changed"/>
                           </object>
                           <packing>
@@ -666,13 +666,13 @@ Interface:</property>
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkRadioButton" id="rb_m3">
+                          <object class="GtkRadioButton" id="m3">
                             <property name="label" translatable="yes">M3</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="draw_indicator">True</property>
-                            <property name="group">rb_m2</property>
+                            <property name="group">m2</property>
                             <signal name="toggled" handler="memory_changed"/>
                           </object>
                           <packing>
@@ -703,7 +703,7 @@ Interface:</property>
                       <object class="GtkTreeView" id="keys_treeview">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="model">keys_m1</property>
+                        <property name="model">m1_commands</property>
                         <child>
                           <object class="GtkTreeViewColumn" id="keys_column1">
                             <property name="title">Key</property>
@@ -717,12 +717,12 @@ Interface:</property>
                         </child>
                         <child>
                           <object class="GtkTreeViewColumn" id="keys_column2">
-                            <property name="title">Command</property>
+                            <property name="title">Command / Text</property>
                             <property name="expand">True</property>
                             <child>
                               <object class="GtkCellRendererText" id="keys_renderer2">
                                 <property name="editable">True</property>
-                                <signal name="edited" handler="keys_command_edited"/>
+                                <signal name="edited" handler="command_edited"/>
                               </object>
                               <attributes>
                                 <attribute name="text">1</attribute>
@@ -734,7 +734,9 @@ Interface:</property>
                           <object class="GtkTreeViewColumn" id="keys_column3">
                             <property name="title">Text input</property>
                             <child>
-                              <object class="GtkCellRendererToggle" id="keys_renderer3"/>
+                              <object class="GtkCellRendererToggle" id="keys_renderer3">
+                                <signal name="toggled" handler="toggle_text_input"/>
+                              </object>
                               <attributes>
                                 <attribute name="active">2</attribute>
                               </attributes>

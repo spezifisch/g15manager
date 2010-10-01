@@ -1,33 +1,27 @@
-#!/usr/bin/python
-# coding: UTF-8
+__author__="keidon"
+__date__ ="$01/10/2010 15:44:37$"
 
-from distutils.core import setup
+from setuptools import setup,find_packages
 
 setup (
-    name = 'G15 Manager',
-    version = '0.2.1',
-    author = 'Nofre Móra',
-    author_email = 'nodiek@gmail.com',
-    url = 'https://launchpad.net/g15manager',
-    license = 'GPL',
-    description= 'A control center for the Logitech G15 keyboard',
+  name = 'G15 Manager',
+  version = '0.1',
+  packages = find_packages(),
 
-    data_files=[
+  # Declare your packages' dependencies here, for eg:
+  install_requires=['foo>=3'],
 
-    ('/usr/bin', ['g15manager']),
+  # Fill in these to make your Egg ready for upload to
+  # PyPI
+  author = 'keidon',
+  author_email = '',
 
-    ('/usr/share/g15manager' , ['g15manager.py','g15manager.ui']),
+  summary = 'Just another Python package for the cheese shop',
+  url = '',
+  license = '',
+  long_description= 'Long description of the package',
 
-    ('/usr/share/g15manager/applets', ['applets/__init__.py','applets/amarok.py','applets/audacious.py',
-            'applets/emesene.py','applets/exaile.py','applets/gmail.py','applets/top.py','applets/rhythmbox.py']),
+  # could also include long_description, download_url, classifiers, etc.
 
-    ('/usr/share/g15manager/icons', ['icons/g15.png', 'icons/g15stats.png', 'icons/gkeys.png','icons/gmail.png','icons/config.png']),
-
-    ('/usr/share/applications', ['g15manager.desktop']),
-
-	('/usr/share/locale/ca/LC_MESSAGES', ['po/ca/g15manager.mo']),
-	('/usr/share/locale/es/LC_MESSAGES', ['po/es/g15manager.mo']),
-
-]
+  
 )
-

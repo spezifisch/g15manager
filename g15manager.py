@@ -37,13 +37,13 @@ class Main:
         self.toggle_bindings = builder.get_object("toggle_bindings")
         self.start_minimized = builder.get_object("start_minimized")
         self.item_show_hide = builder.get_object("item_show_hide")    
-        self.keys_m1 = builder.get_object("keys_m1")
-        self.keys_m2 = builder.get_object("keys_m2")
-        self.keys_m3 = builder.get_object("keys_m3")
         self.keys_treeview = builder.get_object("keys_treeview")
-        self.rb_m1 = builder.get_object("rb_m1")
-        self.rb_m2 = builder.get_object("rb_m2")
-        self.rb_m3 = builder.get_object("rb_m3")
+        self.m1 = builder.get_object("m1")
+        self.m2 = builder.get_object("m2")
+        self.m3 = builder.get_object("m3")
+        self.m1_commands = builder.get_object("m1_commands")
+        self.m2_commands = builder.get_object("m2_commands")
+        self.m3_commands = builder.get_object("m3_commands")
         self.keys_renderer2 = builder.get_object("keys_renderer2")
         self.keys_renderer3 = builder.get_object("keys_renderer3")
 
@@ -89,30 +89,15 @@ class Main:
         self.applets.set_value(self.applets.get_iter(7), 1, self.config.get_bool("/apps/g15manager/startup/process_monitor"))
 
 
+        for i in range(6):
+            self.m1_commands.set_value(self.m1_commands.get_iter(i), 1, self.config.get_string("/apps/g15manager/commands/M1/G%i" % (i+1) ))
+            self.m2_commands.set_value(self.m2_commands.get_iter(i), 1, self.config.get_string("/apps/g15manager/commands/M2/G%i" % (i+1) ))
+            self.m3_commands.set_value(self.m3_commands.get_iter(i), 1, self.config.get_string("/apps/g15manager/commands/M3/G%i" % (i+1) ))
 
-        self.keys_m1.set_value(self.keys_m1.get_iter(0), 1, self.config.get_string("/apps/g15manager/commands/M1/G1"))
-        self.keys_m1.set_value(self.keys_m1.get_iter(1), 1, self.config.get_string("/apps/g15manager/commands/M1/G2"))
-        self.keys_m1.set_value(self.keys_m1.get_iter(2), 1, self.config.get_string("/apps/g15manager/commands/M1/G3"))
-        self.keys_m1.set_value(self.keys_m1.get_iter(3), 1, self.config.get_string("/apps/g15manager/commands/M1/G4"))
-        self.keys_m1.set_value(self.keys_m1.get_iter(4), 1, self.config.get_string("/apps/g15manager/commands/M1/G5"))
-        self.keys_m1.set_value(self.keys_m1.get_iter(5), 1, self.config.get_string("/apps/g15manager/commands/M1/G6"))
-
-        self.keys_m2.set_value(self.keys_m2.get_iter(0), 1, self.config.get_string("/apps/g15manager/commands/M2/G1"))
-        self.keys_m2.set_value(self.keys_m2.get_iter(1), 1, self.config.get_string("/apps/g15manager/commands/M2/G2"))
-        self.keys_m2.set_value(self.keys_m2.get_iter(2), 1, self.config.get_string("/apps/g15manager/commands/M2/G3"))
-        self.keys_m2.set_value(self.keys_m2.get_iter(3), 1, self.config.get_string("/apps/g15manager/commands/M2/G4"))
-        self.keys_m2.set_value(self.keys_m2.get_iter(4), 1, self.config.get_string("/apps/g15manager/commands/M2/G5"))
-        self.keys_m2.set_value(self.keys_m2.get_iter(5), 1, self.config.get_string("/apps/g15manager/commands/M2/G6"))
-
-        self.keys_m3.set_value(self.keys_m3.get_iter(0), 1, self.config.get_string("/apps/g15manager/commands/M3/G1"))
-        self.keys_m3.set_value(self.keys_m3.get_iter(1), 1, self.config.get_string("/apps/g15manager/commands/M3/G2"))
-        self.keys_m3.set_value(self.keys_m3.get_iter(2), 1, self.config.get_string("/apps/g15manager/commands/M3/G3"))
-        self.keys_m3.set_value(self.keys_m3.get_iter(3), 1, self.config.get_string("/apps/g15manager/commands/M3/G4"))
-        self.keys_m3.set_value(self.keys_m3.get_iter(4), 1, self.config.get_string("/apps/g15manager/commands/M3/G5"))
-        self.keys_m3.set_value(self.keys_m3.get_iter(5), 1, self.config.get_string("/apps/g15manager/commands/M3/G6"))
-
-
-
+            self.m1_commands.set_value(self.m1_commands.get_iter(i), 2, self.config.get_bool("/apps/g15manager/commands/M1/G%i_text_input" % (i+1) ))
+            self.m2_commands.set_value(self.m2_commands.get_iter(i), 2, self.config.get_bool("/apps/g15manager/commands/M2/G%i_text_input" % (i+1) ))
+            self.m3_commands.set_value(self.m3_commands.get_iter(i), 2, self.config.get_bool("/apps/g15manager/commands/M3/G%i_text_input" % (i+1) ))
+   
 
         for i in range(8):
             iter = self.applets.get_iter(i)
@@ -134,13 +119,15 @@ class Main:
         self.socket.connect(("localhost", 15550))
         if self.socket.recv(16) != "G15 daemon HELLO":
             raise Exception("Communication error with server")
+        self.socket.send("TBUF")
         self.socket.setblocking(0)
 
-        self.rb_m1.set_active(True)
+
+        self.m1.set_active(True)
 
         gobject.timeout_add(50, keys.catch_keys, self.socket, self.toggle_bindings,
-                self.keys_m1, self.keys_m2, self.keys_m3,
-                self.rb_m1.get_active(), self.rb_m2.get_active(), self.rb_m3.get_active())
+                self.m1_commands, self.m2_commands, self.m3_commands,
+                self.m1, self.m2, self.m3)
 
 
     def show_hide(self, widget):
@@ -171,33 +158,34 @@ class Main:
 
 
     def memory_changed(self, widget):
-        if self.rb_m1.get_active():
-            self.keys_treeview.set_model(self.keys_m1)
-
-        elif self.rb_m2.get_active():
-            self.keys_treeview.set_model(self.keys_m2)
-
-        elif self.rb_m3.get_active():
-            self.keys_treeview.set_model(self.keys_m3)
+        if self.m1.get_active():
+            self.keys_treeview.set_model(self.m1_commands)
+        elif self.m2.get_active():
+            self.keys_treeview.set_model(self.m2_commands)
+        elif self.m3.get_active():
+            self.keys_treeview.set_model(self.m3_commands)
 
 
 
-    def keys_command_edited(self, widget, item, text):
-        if self.rb_m1.get_active():
-            iter = self.keys_m1.get_iter(int(item))
-            self.keys_m1.set_value(iter, 1, text)
-            self.config.set_string("/apps/g15manager/commands/M1/G%i" % (int(item)+1), self.keys_m1.get_value(iter, 1))
+    def command_edited(self, widget, item, text):
+        if self.m1.get_active():
+            keys.command_edited(item, text, self.m1_commands, 1, self.config)
+        elif self.m2.get_active():
+            keys.command_edited(item, text, self.m2_commands, 2, self.config)
+        elif self.m3.get_active():
+            keys.command_edited(item, text, self.m3_commands, 3, self.config)
 
-        elif self.rb_m2.get_active():
-            iter = self.keys_m2.get_iter(int(item))
-            self.keys_m2.set_value(iter, 1, text)
-            self.config.set_string("/apps/g15manager/commands/M2/G%i" % (int(item)+1), self.keys_m2.get_value(iter, 1))
 
-        elif self.rb_m3.get_active():
-            iter = self.keys_m3.get_iter(int(item))
-            self.keys_m3.set_value(iter, 1, text)
-            self.config.set_string("/apps/g15manager/commands/M3/G%i" % (int(item)+1), self.keys_m3.get_value(iter, 1))
 
+    def toggle_text_input(self, widget, item):
+        if self.m1.get_active():
+            keys.toggle_text_input(item, self.m1_commands, 1, self.config)
+        elif self.m2.get_active():
+            keys.toggle_text_input(item, self.m2_commands, 2, self.config)
+        elif self.m3.get_active():
+            keys.toggle_text_input(item, self.m3_commands, 3, self.config)
+
+  
 
 
     def change_page(self, widget):

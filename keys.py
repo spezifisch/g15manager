@@ -7,7 +7,8 @@ keys_list={1:0, 2:1, 4:2, 8:3, 16:4, 32:5, 262144:"M1",
             33554432:"L3", 67108864:"L4"}
 
 
-def catch_keys(g15socket, bindings, keys_m1, keys_m2, keys_m3, m1, m2, m3 ):
+def catch_keys(g15socket, bindings, m1_commands, m2_commands, m3_commands, m1, m2, m3 ):
+
     try:
         recv = g15socket.recv(1024)
         key = struct.unpack("i", recv)[0]
@@ -17,21 +18,43 @@ def catch_keys(g15socket, bindings, keys_m1, keys_m2, keys_m3, m1, m2, m3 ):
 
     if 1 <= key <= 32 and bindings.get_active():
 
-        if m1:
-            iter = keys_m1.get_iter(keys_list[key])
-            command = keys_m1.get_value(iter, 1).split(" ")
-        elif m2:
-            iter = keys_m2.get_iter(keys_list[key])        
-            command = keys_m2.get_value(iter, 1).split(" ")
-        elif m3:
-            iter = keys_m3.get_iter(keys_list[key])
-            command = keys_m3.get_value(iter, 1).split(" ")
+        def run_command(commands):
+            iter = commands.get_iter(keys_list[key])
+            if commands.get_value(iter, 1):
+                if commands.get_value(iter, 2):
+                    command = ["xte", "str " + commands.get_value(iter, 1)]
+                else:
+                    command = commands.get_value(iter, 1).split(" ")
+
+            try:
+                subprocess.Popen(command)
+            except:
+                pass
 
 
-        try:
-            subprocess.Popen(command)
-        except:
-            pass
-
+        if m1.get_active():
+            run_command(m1_commands)
+        elif m2.get_active():
+            run_command(m2_commands)
+        elif m3.get_active():
+            run_command(m3_commands)
 
     return True
+
+
+
+def command_edited(item, text, commands, mem, config):
+    iter = commands.get_iter(int(item))
+    commands.set_value(iter, 1, text)
+    config.set_string("/apps/g15manager/commands/M%i/G%i" % (mem, (int(item)+1)), commands.get_value(iter, 1))
+
+
+
+def toggle_text_input(item, commands, mem, config):
+        iter = commands.get_iter(int(item))
+        if commands.get_value(iter, 2):
+            commands.set_value(iter, 2, False)
+        else:
+            commands.set_value(iter, 2, True)
+
+        config.set_bool("/apps/g15manager/commands/M%i/G%i_text_input" % (mem,(int(item)+1)), commands.get_value(iter, 2))
