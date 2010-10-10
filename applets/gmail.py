@@ -6,6 +6,9 @@ from xml import sax
 
 import gnomekeyring
 
+name = "Gmail"
+description = "Shows the unread mails\nof your Gmail account"
+
 def start(user,passwd, minutes):
 
     process = subprocess.Popen(["g15composer", "/tmp/g15manager-gmail"])

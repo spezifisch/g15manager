@@ -5,6 +5,9 @@ import subprocess
 import dbus
 import gobject
 
+name = "Exaile"
+description = "Shows the Exaile's\ncurrent track"
+
 def start():
   
     process = subprocess.Popen(["g15composer", "/tmp/g15manager-exaile"])

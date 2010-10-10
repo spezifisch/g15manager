@@ -4,6 +4,9 @@ import subprocess
 import dbus
 import gobject
 
+name = "Emesene"
+description = "Shows the number of unread\nmessages of Emesene"
+
 def start():
 
     states = {"NLN":"Online", "HDN":"Hidden",

@@ -5,6 +5,9 @@ import subprocess
 import dbus
 import gobject
 
+name = "Audacious"
+description = "Shows the Audacious's\ncurrent track"
+
 def start():
   
     process = subprocess.Popen(["g15composer", "/tmp/g15manager-audacious"])

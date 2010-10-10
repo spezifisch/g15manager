@@ -5,6 +5,9 @@ import subprocess
 import dbus
 import gobject
 
+name = "Rhythmbox"
+description = "Shows the Rhythmbox's\ncurrent track"
+
 def start():
   
     process = subprocess.Popen(["g15composer", "/tmp/g15manager-rhythmbox"])
@@ -28,7 +31,6 @@ def applet(cn, cu):
     if not loop:
         return False
 
-    #try:
     bus = dbus.SessionBus()
     playerbus = bus.get_object('org.gnome.Rhythmbox', '/org/gnome/Rhythmbox/Player')
     shell = bus.get_object('org.gnome.Rhythmbox', '/org/gnome/Rhythmbox/Shell')
@@ -112,9 +114,6 @@ def applet(cn, cu):
             "TO 0 36 1 2 \"%i:%s\"\n" % (totm, tots) + \
             "MC 0\n";
 
-
-#    except:
-#        text =  "TO 0 18 1 1 \"Rhythmbox isn't running\"\n"
 
     with open("/tmp/g15manager-rhythmbox", "w") as pipe:
         pipe.write(text)

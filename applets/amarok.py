@@ -5,6 +5,9 @@ import subprocess
 import dbus
 import gobject
 
+name = "Amarok"
+description = "Shows the Amarok's\ncurrent track"
+
 def start():
   
     process = subprocess.Popen(["g15composer", "/tmp/g15manager-amarok"])

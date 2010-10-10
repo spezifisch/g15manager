@@ -1,6 +1,9 @@
 import subprocess
 import gobject
 
+name = "Process Monitor"
+description = "Shows the 4 processes\nthat consume more CPU"
+
 def start():
     process = subprocess.Popen(["g15composer","/tmp/g15manager-top"])
     applet()

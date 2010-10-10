@@ -7,17 +7,16 @@ keys_list={1:0, 2:1, 4:2, 8:3, 16:4, 32:5, 262144:"M1",
             33554432:"L3", 67108864:"L4"}
 
 
-def catch_keys(g15socket, bindings, m1_commands, m2_commands, m3_commands, m1, m2, m3 ):
+def catch_keys(socket, bindings, m1_commands, m2_commands, m3_commands, m1, m2, m3 ):
 
     try:
-        recv = g15socket.recv(1024)
+        recv = socket.recv(1024)
         key = struct.unpack("i", recv)[0]
     except:
-        return True
+        return bindings.get_active()
 
 
-    if 1 <= key <= 32 and bindings.get_active():
-
+    if 1 <= key <= 32:
         def run_command(commands):
             iter = commands.get_iter(keys_list[key])
             if commands.get_value(iter, 1):
@@ -39,7 +38,7 @@ def catch_keys(g15socket, bindings, m1_commands, m2_commands, m3_commands, m1, m
         elif m3.get_active():
             run_command(m3_commands)
 
-    return True
+    return bindings.get_active()
 
 
 
