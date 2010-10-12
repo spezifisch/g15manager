@@ -5,7 +5,7 @@ from distutils.core import setup
 
 setup (
     name = 'G15 Manager',
-    version = '0.3',
+    version = '0.3.2',
     author = 'Nofre Móra',
     author_email = 'nodiek@gmail.com',
     url = 'https://launchpad.net/g15manager',
@@ -16,7 +16,7 @@ setup (
 
     ('/usr/bin', ['g15manager']),
 
-    ('/usr/share/g15manager' , ['g15manager.py','g15manager.ui']),
+    ('/usr/share/g15manager' , ['g15manager.py','g15manager.ui','keys.py']),
 
     ('/usr/share/g15manager/applets', ['applets/__init__.py','applets/amarok.py','applets/audacious.py',
             'applets/emesene.py','applets/exaile.py','applets/gmail.py','applets/top.py','applets/rhythmbox.py','applets/hardmon.py']),

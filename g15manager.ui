@@ -650,6 +650,7 @@
                         <property name="can_focus">True</property>
                         <property name="invisible_char">•</property>
                         <property name="width_chars">10</property>
+                        <signal name="changed" handler="network_interface_changed"/>
                       </object>
                       <packing>
                         <property name="left_attach">2</property>

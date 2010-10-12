@@ -1,5 +1,6 @@
 g15manager.py
 setup.py
+keys.py
 applets/__init__.py
 applets/amarok.py
 applets/audacious.py

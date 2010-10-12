@@ -127,9 +127,9 @@ class Main:
 
 
     def quit(self, widget):
-        for i in self.processes:
-            if i != 0:
-                i.kill()
+        for applet in applets.applets:
+            if applet[2] != 0:
+                applet[2].kill()
         gtk.main_quit()
 
 
@@ -212,7 +212,7 @@ class Main:
     def show_aboutdialog(self, widget):
         dialog = gtk.AboutDialog()
         dialog.set_name("G15 Manager")
-        dialog.set_version("0.3")
+        dialog.set_version("0.3.2")
         dialog.set_authors(["Nofre Móra"])
         dialog.set_website("https://launchpad.net/g15manager")
         dialog.run()
@@ -266,6 +266,8 @@ class Main:
 
         self.info_label.set_text(self._(applets.applets[item][1].description))
 
+    def network_interface_changed(self, widget):
+        self.config.set_string("/apps/g15manager/network_interface",self.network_interface.get_text())
 
 
 
