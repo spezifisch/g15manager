@@ -1,9 +1,3 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2014-05-07T12:21:47
-#
-#-------------------------------------------------
-
 QT       += core gui dbus
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -11,30 +5,35 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = G15Manager
 TEMPLATE = app
 
+LIBS += /usr/lib/libg15daemon_client.so \
+    /usr/lib/libg15render.so
+
 
 SOURCES += main.cpp\
         mainwindow.cpp \
     appletsManager.cpp \
-    clementineapplet.cpp \
-    amarokapplet.cpp \
-    applet.cpp \
-    audaciousapplet.cpp \
-    exaileapplet.cpp \
-    gmailapplet.cpp \
-    processesapplet.cpp \
-    rhythmboxapplet.cpp \
-    hardwareapplet.cpp
+    applets/amarokapplet.cpp \
+    applets/applet.cpp \
+    applets/audaciousapplet.cpp \
+    applets/clementineapplet.cpp \
+    applets/exaileapplet.cpp \
+    applets/gmailapplet.cpp \
+    applets/hardwareapplet.cpp \
+    applets/processesapplet.cpp \
+    applets/rhythmboxapplet.cpp
 
 HEADERS  += mainwindow.h \
     appletsManager.h \
-    clementineapplet.h \
-    amarokapplet.h \
-    applet.h \
-    audaciousapplet.h \
-    exaileapplet.h \
-    gmailapplet.h \
-    hardwareapplet.h \
-    processesapplet.h \
-    rhythmboxapplet.h
+    applets/amarokapplet.h \
+    applets/applet.h \
+    applets/audaciousapplet.h \
+    applets/clementineapplet.h \
+    applets/exaileapplet.h \
+    applets/gmailapplet.h \
+    applets/hardwareapplet.h \
+    applets/processesapplet.h \
+    applets/rhythmboxapplet.h
 
 FORMS    += mainwindow.ui
+
+OTHER_FILES +=

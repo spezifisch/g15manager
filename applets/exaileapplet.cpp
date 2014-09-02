@@ -2,23 +2,22 @@
 #include <QDBusMessage>
 #include <QDBusConnection>
 #include <QDBusReply>
-#include <QDebug>
 
 #include "exaileapplet.h"
 
-exaileApplet::exaileApplet() : Applet() {
-    name = "exaile";
-    //startComposer();
-}
+exaileApplet::exaileApplet() : Applet() {}
 
 
 void exaileApplet::update() {
     QDBusMessage m = QDBusMessage::createMethodCall((QString)"org.exaile.Exaile",(QString)"/org/exaile/Exaile","",(QString)"IsPlaying");
     QDBusReply<bool> isPlaying = QDBusConnection::sessionBus().call(m);
 
-    QString text;
+    g15r_clearScreen(canvas, 0);
 
-    if (!isPlaying.isValid()) text = "MC 1\nPC 0\nTO 0 2 1 1 \"Exaile\"\nTO 0 14 1 1 \"Not Found\"\nMC 0\n";
+    if (!isPlaying.isValid()) {
+        g15r_G15FPrint (canvas, (char *) "Exaile", 0, 0, G15_TEXT_HUGE, G15_JUSTIFY_CENTER, G15_COLOR_BLACK, 1);
+        g15r_G15FPrint (canvas, (char *) "Not Found", 0, 0, G15_TEXT_HUGE, G15_JUSTIFY_CENTER, G15_COLOR_BLACK, 2);
+    }
     else {
 
         m = QDBusMessage::createMethodCall((QString)"org.exaile.Exaile",(QString)"/org/exaile/Exaile","",(QString)"GetTrackAttr");
@@ -60,48 +59,47 @@ void exaileApplet::update() {
 
         m = QDBusMessage::createMethodCall((QString)"org.mpris.clementine",(QString)"/Player","",(QString)"CurrentPosition");
         result = QDBusConnection::sessionBus().call(m);
-        QString position = result.value();
+        QString strtemps = result.value();
 
         m = QDBusMessage::createMethodCall((QString)"org.mpris.clementine",(QString)"/Player","",(QString)"CurrentProgress");
         result = QDBusConnection::sessionBus().call(m);
-        int progress = result.value().toInt();
+        int progress = result.value().toInt()*1.6;
 
         int totm = length / 60;
         int tots = length % 60;
 
 
         int maxlen = std::max(title.length(), std::max(artist.length(), album.length()));
-        QString text_size = "0";
+        int text_size = G15_TEXT_SMALL;
 
-        if (maxlen <= 20) text_size = "2";
-        else if (maxlen > 20 && maxlen <= 30) text_size = "1";
+        if (maxlen <= 20) text_size = G15_TEXT_LARGE;
+        else if (maxlen > 20 && maxlen <= 30) text_size = G15_TEXT_MED;
         else {
             if (title.length() > 40) title = title.right(title.length()-(progress % (title.length()-38)));
             if (artist.length() > 40) artist = artist.right(artist.length()-(progress % (artist.length()-38)));
             if (album.length() > 40) album = album.right(album.length()-(progress % (album.length()-38)));
         }
 
-        QString strtotal;
-        if (totm < 10) strtotal.append("0");
-        strtotal.append(QString::number(totm));
-        strtotal.append(":");
-        if (tots < 10) strtotal.append("0");
-        strtotal.append(QString::number(tots));
 
+        strtemps.append("/");
 
+        if (totm < 10) strtemps.append("0");
+        strtemps.append(QString::number(totm));
+        strtemps.append(":");
+        if (tots < 10) strtemps.append("0");
+        strtemps.append(QString::number(tots));
 
-        text = "MC 1\n";
-        text.append("PC 0\n");
-        text.append(QString("TO 0 2 %1 1 \"%2\"\n").arg(text_size, title));
-        text.append("DL 0 11 158 11 1\n");
-        text.append(QString("TO 0 14 %1 1 \"%2\"\n").arg(text_size, artist));
-        text.append(QString("TO 0 22 %1 1 \"%2\"\n").arg(text_size, album));
-        text.append(QString("DB 0 32 159 32 1 %1 100\n").arg(progress));
-        text.append(QString("TO 0 36 1 0 \"%1\"\n").arg(position));
-        text.append(QString("TO 0 36 1 1 \"%1\"\n").arg(year));
-        text.append(QString("TO 0 36 1 2 \"%1\"\n").arg(strtotal));
-        text.append("MC 0\n");
+        g15r_G15FPrint (canvas, qstringToChar(title), 0, 0, text_size, G15_JUSTIFY_CENTER, G15_COLOR_BLACK, 0);
+        g15r_G15FPrint (canvas, qstringToChar(artist), 0, 0, text_size, G15_JUSTIFY_CENTER, G15_COLOR_BLACK, 1);
+        g15r_G15FPrint (canvas, qstringToChar(album), 0, 0, text_size, G15_JUSTIFY_CENTER, G15_COLOR_BLACK, 2);
+
+        g15r_pixelBox(canvas, 0, 28, progress, 32, G15_COLOR_BLACK, 1, G15_PIXEL_FILL);
+        g15r_pixelBox(canvas, progress, 28, 159, 32, G15_COLOR_BLACK, 1, G15_PIXEL_NOFILL);
+
+        g15r_G15FPrint (canvas, qstringToChar(year), 0, 0, G15_TEXT_MED, G15_JUSTIFY_LEFT, G15_COLOR_BLACK, 5);
+        g15r_G15FPrint (canvas, qstringToChar(strtemps), 0, 0, G15_TEXT_MED, G15_JUSTIFY_CENTER, G15_COLOR_BLACK, 5);
+        //g15r_G15FPrint (canvas, qstringToChar(strtotal), 0, 0, G15_TEXT_MED, G15_JUSTIFY_RIGHT, G15_COLOR_BLACK, 5);
     }
 
-    //sendComposer(text);
+    g15_send(fd, (char *) canvas->buffer, G15_BUFFER_LEN);
 }

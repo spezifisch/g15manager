@@ -2,23 +2,24 @@
 #define APPLET_H
 
 #include <QString>
-#include <QProcess>
+
+#include <g15daemon_client.h>
+#include <libg15render.h>
 
 class Applet {
     public:
         Applet();
-        virtual ~Applet();
+        ~Applet();
 
         virtual void update();
 
-        void killComposer();
-
     protected:
-        QString name;
-        QProcess *composer;
-        void startComposer();
-        void sendComposer(QString text);
+
+        int fd;
+        g15canvas *canvas;
+
         static QString eliminarAccents(QString t);
+        static char *qstringToChar(QString s);
 };
 
 #endif // APPLET_H

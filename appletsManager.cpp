@@ -1,15 +1,14 @@
 #include <vector>
-#include <QDebug>
 #include "appletsManager.h"
 
-#include "amarokapplet.h"
-#include "audaciousapplet.h"
-#include "clementineapplet.h"
-#include "exaileapplet.h"
-#include "gmailapplet.h"
-#include "hardwareapplet.h"
-#include "processesapplet.h"
-#include "rhythmboxapplet.h"
+#include "applets/amarokapplet.h"
+#include "applets/audaciousapplet.h"
+#include "applets/clementineapplet.h"
+#include "applets/exaileapplet.h"
+#include "applets/gmailapplet.h"
+#include "applets/hardwareapplet.h"
+#include "applets/processesapplet.h"
+#include "applets/rhythmboxapplet.h"
 
 using namespace std;
 
@@ -22,7 +21,7 @@ AppletsManager::AppletsManager() {
 
 void AppletsManager::toggleApplet(int n) {
 
-    if (applets[n].first) applets[n].second->killComposer();
+    if (applets[n].first) delete(applets[n].second);
     else {
 
         switch(n) {

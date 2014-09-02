@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "applet.h"
+#include "applets/applet.h"
 using namespace std;
 
 class AppletsManager {

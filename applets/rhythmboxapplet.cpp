@@ -6,10 +6,7 @@
 
 #include "rhythmboxapplet.h"
 
-rhythmboxApplet::rhythmboxApplet() : Applet() {
-    name = "rhythmbox";
-    startComposer();
-}
+rhythmboxApplet::rhythmboxApplet() : Applet() {}
 
 
 void rhythmboxApplet::update() {
@@ -18,7 +15,10 @@ void rhythmboxApplet::update() {
 
     QString text;
 
-    if (!result.isValid()) text = "MC 1\nPC 0\nTO 0 2 1 1 \"Amarok\"\nTO 0 14 1 1 \"Not Found\"\nMC 0\n";
+    if (!result.isValid()) {
+        g15r_G15FPrint (canvas, (char *) "Rhythmbox", 0, 0, G15_TEXT_HUGE, G15_JUSTIFY_CENTER, G15_COLOR_BLACK, 1);
+        g15r_G15FPrint (canvas, (char *) "Not Found", 0, 0, G15_TEXT_HUGE, G15_JUSTIFY_CENTER, G15_COLOR_BLACK, 2);
+    }
     else {
 
         QVariantMap map = result.value();
@@ -78,5 +78,5 @@ void rhythmboxApplet::update() {
         text.append("MC 0\n");
     }
 
-    sendComposer(text);
+    g15_send(fd, (char *) canvas->buffer, G15_BUFFER_LEN);
 }
