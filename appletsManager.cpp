@@ -1,4 +1,3 @@
-#include <vector>
 #include "appletsManager.h"
 
 #include "applets/amarokapplet.h"
@@ -10,11 +9,10 @@
 #include "applets/processesapplet.h"
 #include "applets/rhythmboxapplet.h"
 
-using namespace std;
 
 AppletsManager::AppletsManager() {
 
-    applets = vector < pair<bool,Applet*> > (8);
+    applets = std::vector < std::pair<bool,Applet*> > (8);
 
     for (int i = 0; i < 8; ++i) applets[i].first = false;
 }

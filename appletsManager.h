@@ -4,7 +4,15 @@
 #include <vector>
 
 #include "applets/applet.h"
-using namespace std;
+
+#define APPLET_AMAROK 0
+#define APPLET_AUDACIOUS 1
+#define APPLET_EXAILE 2
+#define APPLET_CLEMENTINE 3
+#define APPLET_GMAIL 4
+#define APPLET_HARDWARE 5
+#define APPLET_TOP 6
+
 
 class AppletsManager {
 
@@ -16,7 +24,7 @@ class AppletsManager {
         void update();
 
     private:
-        vector < pair<bool,Applet*> > applets;
+        std::vector < std::pair<bool,Applet*> > applets;
 
 };
 

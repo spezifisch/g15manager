@@ -6,19 +6,25 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>500</width>
     <height>300</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="minimumSize">
    <size>
-    <width>400</width>
+    <width>500</width>
     <height>300</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>400</width>
+    <width>500</width>
     <height>300</height>
    </size>
   </property>
@@ -33,25 +39,31 @@
    <enum>QTabWidget::Rounded</enum>
   </property>
   <widget class="QWidget" name="centralWidget">
+   <property name="maximumSize">
+    <size>
+     <width>500</width>
+     <height>300</height>
+    </size>
+   </property>
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>400</width>
+      <width>500</width>
       <height>300</height>
      </rect>
     </property>
     <property name="sizePolicy">
-     <sizepolicy hsizetype="Maximum" vsizetype="Expanding">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
       <horstretch>0</horstretch>
       <verstretch>0</verstretch>
      </sizepolicy>
     </property>
     <property name="maximumSize">
      <size>
-      <width>16777215</width>
-      <height>16777215</height>
+      <width>500</width>
+      <height>300</height>
      </size>
     </property>
     <property name="tabPosition">
@@ -70,6 +82,12 @@
      </size>
     </property>
     <widget class="QWidget" name="tab">
+     <property name="maximumSize">
+      <size>
+       <width>500</width>
+       <height>300</height>
+      </size>
+     </property>
      <attribute name="icon">
       <iconset>
        <normaloff>icons/g15.png</normaloff>icons/g15.png</iconset>
@@ -82,13 +100,40 @@
        <rect>
         <x>7</x>
         <y>3</y>
-        <width>331</width>
-        <height>291</height>
+        <width>434</width>
+        <height>285</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QLabel" name="label_8">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>10</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="titol">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <family>Sans</family>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
          <property name="text">
           <string>Applets</string>
          </property>
@@ -98,14 +143,14 @@
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer_2">
+        <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>20</height>
           </size>
          </property>
         </spacer>
@@ -115,82 +160,38 @@
          <property name="sizeConstraint">
           <enum>QLayout::SetDefaultConstraint</enum>
          </property>
-         <property name="horizontalSpacing">
-          <number>50</number>
+         <property name="spacing">
+          <number>20</number>
          </property>
-         <item row="7" column="1">
-          <widget class="QLabel" name="label_6">
-           <property name="text">
-            <string>Hardware Monitor</string>
-           </property>
-          </widget>
-         </item>
          <item row="2" column="2">
-          <widget class="QCheckBox" name="checkBox_2">
-           <property name="text">
-            <string/>
+          <widget class="QPushButton" name="button_Exaile">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
            </property>
-          </widget>
-         </item>
-         <item row="6" column="2">
-          <widget class="QCheckBox" name="checkBox_5">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="9" column="1">
-          <spacer name="verticalSpacer">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
+           <property name="maximumSize">
             <size>
-             <width>20</width>
-             <height>40</height>
+             <width>150</width>
+             <height>100</height>
             </size>
            </property>
-          </spacer>
-         </item>
-         <item row="1" column="1">
-          <widget class="QLabel" name="label">
            <property name="text">
-            <string>Amarok</string>
+            <string>Exaile</string>
            </property>
-          </widget>
-         </item>
-         <item row="6" column="1">
-          <widget class="QLabel" name="label_5">
-           <property name="text">
-            <string>Gmail</string>
+           <property name="icon">
+            <iconset>
+             <normaloff>icons/exaile.png</normaloff>icons/exaile.png</iconset>
            </property>
-          </widget>
-         </item>
-         <item row="3" column="1">
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>Clementine</string>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
            </property>
-          </widget>
-         </item>
-         <item row="4" column="2">
-          <widget class="QCheckBox" name="checkBox_4">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="2">
-          <widget class="QCheckBox" name="checkBox_3">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QLabel" name="label_3">
-           <property name="text">
-            <string>Audacious</string>
+           <property name="checkable">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -207,44 +208,172 @@
            </property>
           </spacer>
          </item>
-         <item row="8" column="2">
-          <widget class="QCheckBox" name="checkBox_7">
+         <item row="1" column="1">
+          <widget class="QPushButton" name="button_Amarok">
+           <property name="maximumSize">
+            <size>
+             <width>150</width>
+             <height>100</height>
+            </size>
+           </property>
            <property name="text">
-            <string/>
+            <string>Amarok</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>icons/amarok.png</normaloff>icons/amarok.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
-         <item row="8" column="1">
-          <widget class="QLabel" name="label_7">
+         <item row="3" column="2">
+          <widget class="QPushButton" name="button_Hard">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>150</width>
+             <height>100</height>
+            </size>
+           </property>
            <property name="text">
-            <string>Processes Monitor</string>
+            <string>Hardware Monitor</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QPushButton" name="button_Clementine">
+           <property name="maximumSize">
+            <size>
+             <width>150</width>
+             <height>100</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Clementine</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>icons/clementine.png</normaloff>icons/clementine.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
          <item row="4" column="1">
-          <widget class="QLabel" name="label_4">
-           <property name="text">
-            <string>Exaile</string>
+          <widget class="QPushButton" name="button_Top">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
            </property>
-          </widget>
-         </item>
-         <item row="7" column="2">
-          <widget class="QCheckBox" name="checkBox_6">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>150</width>
+             <height>100</height>
+            </size>
+           </property>
            <property name="text">
-            <string/>
+            <string>Process Monitor</string>
            </property>
           </widget>
          </item>
          <item row="1" column="2">
-          <widget class="QCheckBox" name="checkBox_1">
-           <property name="layoutDirection">
-            <enum>Qt::LeftToRight</enum>
+          <widget class="QPushButton" name="button_Audacious">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
            </property>
-           <property name="autoFillBackground">
-            <bool>false</bool>
+           <property name="maximumSize">
+            <size>
+             <width>150</width>
+             <height>100</height>
+            </size>
            </property>
            <property name="text">
-            <string/>
+            <string>Audacious</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>icons/audacious.png</normaloff>icons/audacious.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QPushButton" name="button_Gmail">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>150</width>
+             <height>100</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Gmail</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>icons/gmail.png</normaloff>icons/gmail.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="default">
+            <bool>false</bool>
+           </property>
+           <property name="flat">
+            <bool>false</bool>
            </property>
           </widget>
          </item>

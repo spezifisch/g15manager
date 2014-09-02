@@ -43,44 +43,45 @@ void MainWindow::timer()
     applets.update();
 }
 
-void MainWindow::on_checkBox_1_toggled(bool checked)
-{
-    applets.toggleApplet(0);
-}
-
-void MainWindow::on_checkBox_2_toggled(bool checked)
-{
-    applets.toggleApplet(1);
-}
-
-void MainWindow::on_checkBox_3_toggled(bool checked)
-{
-    applets.toggleApplet(2);
-}
-
-void MainWindow::on_checkBox_4_toggled(bool checked)
-{
-    applets.toggleApplet(3);
-}
-
-void MainWindow::on_checkBox_5_toggled(bool checked)
-{
-    applets.toggleApplet(4);
-}
-
-void MainWindow::on_checkBox_6_toggled(bool checked)
-{
-    applets.toggleApplet(5);
-}
-
-void MainWindow::on_checkBox_7_toggled(bool checked)
-{
-    applets.toggleApplet(6);
-}
 
 void MainWindow::closeEvent(QCloseEvent *event) {
     if (not tancar) {
         event->ignore();
         hide();
     }
+}
+
+void MainWindow::on_button_Amarok_clicked()
+{
+    applets.toggleApplet(APPLET_AMAROK);
+}
+
+void MainWindow::on_button_Audacious_clicked()
+{
+    applets.toggleApplet(APPLET_AUDACIOUS);
+}
+
+void MainWindow::on_button_Clementine_clicked()
+{
+    applets.toggleApplet(APPLET_CLEMENTINE);
+}
+
+void MainWindow::on_button_Exaile_clicked()
+{
+    applets.toggleApplet(APPLET_EXAILE);
+}
+
+void MainWindow::on_button_Gmail_clicked()
+{
+    applets.toggleApplet(APPLET_GMAIL);
+}
+
+void MainWindow::on_button_Hard_clicked()
+{
+    applets.toggleApplet(APPLET_HARDWARE);
+}
+
+void MainWindow::on_button_Top_clicked()
+{
+    applets.toggleApplet(APPLET_TOP);
 }
