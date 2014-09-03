@@ -6,6 +6,7 @@
 #include <QAction>
 #include <QSystemTrayIcon>
 #include <QCloseEvent>
+#include <QSettings>
 #include "appletsManager.h"
 
 namespace Ui {
@@ -27,13 +28,13 @@ private slots:
 
     void closeApp();
 
-    void on_button_Amarok_clicked();
-    void on_button_Audacious_clicked();
-    void on_button_Clementine_clicked();
-    void on_button_Exaile_clicked();
-    void on_button_Gmail_clicked();
-    void on_button_Hard_clicked();
-    void on_button_Top_clicked();
+    void on_button_Amarok_toggled();
+    void on_button_Audacious_toggled();
+    void on_button_Clementine_toggled();
+    void on_button_Exaile_toggled();
+    void on_button_Gmail_toggled();
+    void on_button_Hard_toggled();
+    void on_button_Top_toggled();
 
 private:
     Ui::MainWindow *ui;
@@ -47,6 +48,8 @@ private:
     void closeEvent(QCloseEvent *event);
 
     bool tancar;
+
+    QSettings settings;
 };
 
 #endif // MAINWINDOW_H
