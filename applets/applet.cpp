@@ -10,6 +10,8 @@ Applet::Applet() {
     canvas->mode_cache = 0;
     canvas->mode_reverse = 0;
     canvas->mode_xor = 0;
+
+    screen = 0;
 }
 
 Applet::~Applet() {

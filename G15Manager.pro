@@ -5,7 +5,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = G15Manager
 TEMPLATE = app
 
-LIBS += /usr/lib/libg15daemon_client.so \
+LIBS += /usr/lib/libg15.so \
+    /usr/lib/libg15daemon_client.so \
     /usr/lib/libg15render.so
 
 
