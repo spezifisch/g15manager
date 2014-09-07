@@ -8,6 +8,7 @@
 
 amarokApplet::amarokApplet() : Applet() {}
 
+amarokApplet::~amarokApplet() {}
 
 void amarokApplet::update() {
 

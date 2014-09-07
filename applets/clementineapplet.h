@@ -7,6 +7,8 @@ class clementineApplet : public Applet
 {
     public:
         clementineApplet();
+        ~clementineApplet();
+
         void update();
 };
 

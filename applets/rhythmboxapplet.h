@@ -7,6 +7,8 @@ class rhythmboxApplet : public Applet
 {
     public:
         rhythmboxApplet();
+        ~rhythmboxApplet();
+
         void update();
 };
 

@@ -7,6 +7,8 @@ class processesApplet : public Applet
 {
     public:
         processesApplet();
+        ~processesApplet();
+
         void update();
 };
 

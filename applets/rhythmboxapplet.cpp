@@ -8,6 +8,7 @@
 
 rhythmboxApplet::rhythmboxApplet() : Applet() {}
 
+rhythmboxApplet::~rhythmboxApplet() {}
 
 void rhythmboxApplet::update() {
     QDBusMessage m = QDBusMessage::createMethodCall((QString)"org.mpris.amarok",(QString)"/Player","",(QString)"GetMetadata");

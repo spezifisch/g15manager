@@ -7,6 +7,8 @@ class audaciousApplet : public Applet
 {
     public:
         audaciousApplet();
+        ~audaciousApplet();
+
         void update();
 };
 

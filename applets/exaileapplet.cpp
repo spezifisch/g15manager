@@ -7,6 +7,7 @@
 
 exaileApplet::exaileApplet() : Applet() {}
 
+exaileApplet::~exaileApplet() {}
 
 void exaileApplet::update() {
     QDBusMessage m = QDBusMessage::createMethodCall((QString)"org.exaile.Exaile",(QString)"/org/exaile/Exaile","",(QString)"IsPlaying");

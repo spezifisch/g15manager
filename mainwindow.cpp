@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->button_Gmail->setChecked(settings.value("gmail", false).toBool());
     ui->button_Hard->setChecked(settings.value("hardware", false).toBool());
     ui->button_Top->setChecked(settings.value("top", false).toBool());
-
+    ui->button_Crono->setChecked(settings.value("crono", false).toBool());
 
 
     if (settings.value("start_hidden", false).toBool()) {
@@ -53,6 +53,7 @@ MainWindow::~MainWindow() {
     settings.setValue("gmail", ui->button_Gmail->isChecked());
     settings.setValue("hardware", ui->button_Hard->isChecked());
     settings.setValue("top", ui->button_Top->isChecked());
+    settings.setValue("crono", ui->button_Crono->isChecked());
 
 
     settings.setValue("start_hidden", ui->checkStartHidden->isChecked());
@@ -82,36 +83,41 @@ void MainWindow::closeEvent(QCloseEvent *event) {
 
 void MainWindow::on_button_Amarok_toggled()
 {
-    applets.toggleApplet(APPLET_AMAROK);
+    if (!applets.toggleApplet(APPLET_AMAROK)) ui->button_Amarok->setChecked(false);
 }
 
 void MainWindow::on_button_Audacious_toggled()
 {
-    applets.toggleApplet(APPLET_AUDACIOUS);
+    if (!applets.toggleApplet(APPLET_AUDACIOUS)) ui->button_Audacious->setChecked(false);
 }
 
 void MainWindow::on_button_Clementine_toggled()
 {
-    applets.toggleApplet(APPLET_CLEMENTINE);
+    if (!applets.toggleApplet(APPLET_CLEMENTINE)) ui->button_Clementine->setChecked(false);
 }
 
 void MainWindow::on_button_Exaile_toggled()
 {
-    applets.toggleApplet(APPLET_EXAILE);
+    if (!applets.toggleApplet(APPLET_EXAILE)) ui->button_Exaile->setChecked(false);
 }
 
 void MainWindow::on_button_Gmail_toggled()
 {
-    applets.toggleApplet(APPLET_GMAIL);
+    if (!applets.toggleApplet(APPLET_GMAIL)) ui->button_Gmail->setChecked(false);
 }
 
 void MainWindow::on_button_Hard_toggled()
 {
-    applets.toggleApplet(APPLET_HARDWARE);
+    if (!applets.toggleApplet(APPLET_HARDWARE)) ui->button_Hard->setChecked(false);
 }
 
 void MainWindow::on_button_Top_toggled()
 {
-    applets.toggleApplet(APPLET_TOP);
+    if (!applets.toggleApplet(APPLET_TOP)) ui->button_Top->setChecked(false);
 }
 
+
+void MainWindow::on_button_Crono_toggled()
+{
+    if (!applets.toggleApplet(APPLET_CRONO)) ui->button_Crono->setChecked(false);
+}

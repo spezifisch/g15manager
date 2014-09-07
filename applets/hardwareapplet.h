@@ -7,6 +7,8 @@ class hardwareApplet : public Applet
 {
     public:
         hardwareApplet();
+        ~hardwareApplet();
+
         void update();
 
     private:

@@ -7,6 +7,8 @@ class exaileApplet :  public Applet
 {
     public:
         exaileApplet();
+        ~exaileApplet();
+
         void update();
 };
 

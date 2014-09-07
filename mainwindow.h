@@ -35,6 +35,7 @@ private slots:
     void on_button_Gmail_toggled();
     void on_button_Hard_toggled();
     void on_button_Top_toggled();
+    void on_button_Crono_toggled();
 
 private:
     Ui::MainWindow *ui;

@@ -7,6 +7,8 @@ class amarokApplet : public Applet
 {
     public:
         amarokApplet();
+        ~amarokApplet();
+
         void update();
 };
 

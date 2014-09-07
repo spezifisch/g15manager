@@ -12,6 +12,7 @@
 #define APPLET_GMAIL 4
 #define APPLET_HARDWARE 5
 #define APPLET_TOP 6
+#define APPLET_CRONO 7
 
 
 class AppletsManager {
@@ -19,7 +20,7 @@ class AppletsManager {
     public:
         AppletsManager();
 
-        void toggleApplet(int n);
+        bool toggleApplet(int n);
 
         void update();
 

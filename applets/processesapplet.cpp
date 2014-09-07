@@ -4,6 +4,7 @@
 
 processesApplet::processesApplet() : Applet() {}
 
+processesApplet::~processesApplet() {}
 
 void processesApplet::update() {
 

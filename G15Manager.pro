@@ -11,7 +11,7 @@ LIBS += /usr/lib/libg15.so \
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
+    mainwindow.cpp \
     appletsManager.cpp \
     applets/amarokapplet.cpp \
     applets/applet.cpp \
@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     applets/gmailapplet.cpp \
     applets/hardwareapplet.cpp \
     applets/processesapplet.cpp \
-    applets/rhythmboxapplet.cpp
+    applets/rhythmboxapplet.cpp \
+    applets/cronoapplet.cpp
 
 HEADERS  += mainwindow.h \
     appletsManager.h \
@@ -33,7 +34,8 @@ HEADERS  += mainwindow.h \
     applets/gmailapplet.h \
     applets/hardwareapplet.h \
     applets/processesapplet.h \
-    applets/rhythmboxapplet.h
+    applets/rhythmboxapplet.h \
+    applets/cronoapplet.h
 
 FORMS    += mainwindow.ui
 

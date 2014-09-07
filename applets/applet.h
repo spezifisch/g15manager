@@ -8,9 +8,12 @@
 #include <libg15render.h>
 
 class Applet {
+
     public:
         Applet();
-        ~Applet();
+        virtual ~Applet();
+
+        bool init();
 
         virtual void update();
 

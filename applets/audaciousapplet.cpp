@@ -8,6 +8,7 @@
 
 audaciousApplet::audaciousApplet() : Applet() {}
 
+audaciousApplet::~audaciousApplet() {}
 
 void audaciousApplet::update() {
 

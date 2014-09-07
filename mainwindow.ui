@@ -76,7 +76,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <property name="iconSize">
      <size>
@@ -405,6 +405,32 @@
             </size>
            </property>
           </spacer>
+         </item>
+         <item row="4" column="2">
+          <widget class="QPushButton" name="button_Crono">
+           <property name="maximumSize">
+            <size>
+             <width>150</width>
+             <height>100</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Cronometer</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>icons/crono.png</normaloff>icons/crono.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>

@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
 
     QTimer timer;
     a.connect(&timer, SIGNAL(timeout()), &w, SLOT(timer()));
-    timer.start(900);
+    timer.start(950);
 
     return a.exec();
 

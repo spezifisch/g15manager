@@ -7,6 +7,8 @@ class gmailApplet : public Applet
 {
     public:
         gmailApplet();
+        ~gmailApplet();
+
         void update();
 };
 

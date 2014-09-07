@@ -7,6 +7,7 @@
 
 clementineApplet::clementineApplet() : Applet() {}
 
+clementineApplet::~clementineApplet() {}
 
 void clementineApplet::update() {
 
