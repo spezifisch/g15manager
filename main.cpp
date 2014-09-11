@@ -14,6 +14,9 @@ int main(int argc, char *argv[]) {
     a.connect(&timer, SIGNAL(timeout()), &w, SLOT(timer()));
     timer.start(950);
 
-    return a.exec();
+    QSettings settings;
 
+    if (not (argc > 1 and QString(argv[1]) == "--hide") and not settings.value("start_hidden", false).toBool()) w.show();
+
+    return a.exec();
 }

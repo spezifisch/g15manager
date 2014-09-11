@@ -36,14 +36,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->button_Hard->setChecked(settings.value("hardware", false).toBool());
     ui->button_Top->setChecked(settings.value("top", false).toBool());
     ui->button_Crono->setChecked(settings.value("crono", false).toBool());
-
-
-    if (settings.value("start_hidden", false).toBool()) {
-        ui->checkStartHidden->setChecked(true);
-    }
-    else show();
-
+    ui->checkStartHidden->setChecked(settings.value("start_hidden", false).toBool());
 }
+
 
 MainWindow::~MainWindow() {
     settings.setValue("amarok", ui->button_Amarok->isChecked());
