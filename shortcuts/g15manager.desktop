@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=G15Manager
+GenericName=Logitech G15 Manager
+Comment=Control the screen and GKeys of the G15 keyboard
+Exec=g15manager
+Terminal=false
+Type=Application
+Icon=g15manager
+Categories=Qt;Settings;HardwareSettings;
+StartupNotify=false

@@ -2,7 +2,7 @@ QT       += core gui dbus
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = G15Manager
+TARGET = g15manager
 TEMPLATE = app
 
 LIBS += /usr/lib/libg15.so \
@@ -39,4 +39,16 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui
 
-OTHER_FILES +=
+binaries.path = /usr/bin
+binaries.files = g15manager
+
+icons.path = /usr/share/g15manager/icons
+icons.files = icons/*
+
+autostart.path = /etc/xdg/autostart
+autostart.files = g15manager_hidden.desktop
+
+shortcuts.path = /usr/share/applications
+shortcuts.files = g15manager.desktop
+
+INSTALLS = binaries icons autostart shortcuts

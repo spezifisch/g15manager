@@ -1,0 +1,14 @@
+Source: g15manager
+Section: unknown
+Priority: optional
+Maintainer: Nofre Móra Sagreres <nodiek@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), cdbs, qt4-default, qt4-qmake, libg15-dev, libg15daemon-client-dev, libg15render-dev
+Standards-Version: 3.9.5
+Homepage: http://www.nofremora.com
+
+
+Package: g15manager
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, g15daemon
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>
