@@ -5,6 +5,6 @@ Comment=Control the screen and GKeys of the G15 keyboard
 Exec=g15manager
 Terminal=false
 Type=Application
-Icon=g15manager
+Icon=/usr/share/g15manager/icons/g15manager.png
 Categories=Qt;Settings;HardwareSettings;
 StartupNotify=false

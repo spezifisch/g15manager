@@ -33,7 +33,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>icons/g15.png</normaloff>icons/g15.png</iconset>
+    <normaloff>../../../../usr/share/g15manager/icons/g15.png</normaloff>../../../../usr/share/g15manager/icons/g15.png</iconset>
   </property>
   <property name="tabShape">
    <enum>QTabWidget::Rounded</enum>
@@ -96,7 +96,7 @@
      </property>
      <attribute name="icon">
       <iconset>
-       <normaloff>icons/g15.png</normaloff>icons/g15.png</iconset>
+       <normaloff>../../../../usr/share/g15manager/icons/g15manager.png</normaloff>../../../../usr/share/g15manager/icons/g15manager.png</iconset>
      </attribute>
      <attribute name="title">
       <string/>
@@ -175,7 +175,7 @@
            </property>
            <property name="icon">
             <iconset>
-             <normaloff>icons/exaile.png</normaloff>icons/exaile.png</iconset>
+             <normaloff>../../../../usr/share/g15manager/icons/exaile.png</normaloff>../../../../usr/share/g15manager/icons/exaile.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -214,7 +214,7 @@
            </property>
            <property name="icon">
             <iconset>
-             <normaloff>icons/amarok.png</normaloff>icons/amarok.png</iconset>
+             <normaloff>../../../../usr/share/g15manager/icons/amarok.png</normaloff>../../../../usr/share/g15manager/icons/amarok.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -246,7 +246,7 @@
            </property>
            <property name="icon">
             <iconset>
-             <normaloff>icons/hard.png</normaloff>icons/hard.png</iconset>
+             <normaloff>../../../../usr/share/g15manager/icons/hard.png</normaloff>../../../../usr/share/g15manager/icons/hard.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -272,7 +272,7 @@
            </property>
            <property name="icon">
             <iconset>
-             <normaloff>icons/clementine.png</normaloff>icons/clementine.png</iconset>
+             <normaloff>../../../../usr/share/g15manager/icons/clementine.png</normaloff>../../../../usr/share/g15manager/icons/clementine.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -310,7 +310,7 @@
            </property>
            <property name="icon">
             <iconset>
-             <normaloff>icons/top.png</normaloff>icons/top.png</iconset>
+             <normaloff>../../../../usr/share/g15manager/icons/top.png</normaloff>../../../../usr/share/g15manager/icons/top.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -342,7 +342,7 @@
            </property>
            <property name="icon">
             <iconset>
-             <normaloff>icons/audacious.png</normaloff>icons/audacious.png</iconset>
+             <normaloff>../../../../usr/share/g15manager/icons/audacious.png</normaloff>../../../../usr/share/g15manager/icons/audacious.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -374,7 +374,7 @@
            </property>
            <property name="icon">
             <iconset>
-             <normaloff>icons/gmail.png</normaloff>icons/gmail.png</iconset>
+             <normaloff>../../../../usr/share/g15manager/icons/gmail.png</normaloff>../../../../usr/share/g15manager/icons/gmail.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -419,7 +419,7 @@
            </property>
            <property name="icon">
             <iconset>
-             <normaloff>icons/crono.png</normaloff>icons/crono.png</iconset>
+             <normaloff>../../../../usr/share/g15manager/icons/crono.png</normaloff>../../../../usr/share/g15manager/icons/crono.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -443,7 +443,7 @@
      </property>
      <attribute name="icon">
       <iconset>
-       <normaloff>icons/gmail.png</normaloff>icons/gmail.png</iconset>
+       <normaloff>../../../../usr/share/g15manager/icons/gmail.png</normaloff>../../../../usr/share/g15manager/icons/gmail.png</iconset>
      </attribute>
      <attribute name="title">
       <string/>
@@ -452,7 +452,7 @@
     <widget class="QWidget" name="tab_3">
      <attribute name="icon">
       <iconset>
-       <normaloff>icons/gkeys.png</normaloff>icons/gkeys.png</iconset>
+       <normaloff>../../../../usr/share/g15manager/icons/gkeys.png</normaloff>../../../../usr/share/g15manager/icons/gkeys.png</iconset>
      </attribute>
      <attribute name="title">
       <string/>
@@ -461,7 +461,7 @@
     <widget class="QWidget" name="tab_4">
      <attribute name="icon">
       <iconset>
-       <normaloff>icons/gear.png</normaloff>icons/gear.png</iconset>
+       <normaloff>../../../../usr/share/g15manager/icons/gear.png</normaloff>../../../../usr/share/g15manager/icons/gear.png</iconset>
      </attribute>
      <attribute name="title">
       <string/>

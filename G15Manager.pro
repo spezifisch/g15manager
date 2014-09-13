@@ -46,9 +46,9 @@ icons.path = /usr/share/g15manager/icons
 icons.files = icons/*
 
 autostart.path = /etc/xdg/autostart
-autostart.files = g15manager_hidden.desktop
+autostart.files = shortcuts/g15manager_hidden.desktop
 
 shortcuts.path = /usr/share/applications
-shortcuts.files = g15manager.desktop
+shortcuts.files = shortcuts/g15manager.desktop
 
 INSTALLS = binaries icons autostart shortcuts

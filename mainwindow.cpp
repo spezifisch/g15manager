@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(closeTray, SIGNAL(triggered()), this, SLOT(closeApp()));
     trayMenu->addAction(closeTray);
 
-    QIcon icon = QIcon("icons/g15_24.png");
+    QIcon icon = QIcon("/usr/share/g15manager/icons/g15_24.png");
     trayIcon = new QSystemTrayIcon(icon, this);
     trayIcon->setContextMenu(trayMenu);
     trayIcon->show();
