@@ -14,6 +14,9 @@ class hardwareApplet : public Applet
     private:
         int cpuOld;
         int idleOld;
+
+        int recvBytesOld;
+        int transBytesOld;
 };
 
 #endif // HARDWAREAPPLET_H
