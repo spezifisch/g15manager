@@ -76,7 +76,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <property name="iconSize">
      <size>
@@ -415,7 +415,7 @@
        <rect>
         <x>109</x>
         <y>19</y>
-        <width>221</width>
+        <width>225</width>
         <height>271</height>
        </rect>
       </property>
