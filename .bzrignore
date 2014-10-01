@@ -3,3 +3,10 @@ G15Manager.pro.user
 G15Manager.pro.user.534890a
 Makefile
 g15manager
+applets/gmailapplet.cpp
+applets/gmailapplet.h
+applets/rhythmboxapplet.cpp
+applets/rhythmboxapplet.h
+icons/gmail.png
+icons/rhythmbox.png
+icons/vlc.png

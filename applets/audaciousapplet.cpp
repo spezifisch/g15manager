@@ -78,9 +78,8 @@ void audaciousApplet::update() {
         g15r_pixelBox(canvas, 0, 28, progress, 32, G15_COLOR_BLACK, 1, G15_PIXEL_FILL);
         g15r_pixelBox(canvas, progress, 28, 159, 32, G15_COLOR_BLACK, 1, G15_PIXEL_NOFILL);
 
-        g15r_G15FPrint (canvas, qstringToChar(year), 0, 0, G15_TEXT_MED, G15_JUSTIFY_LEFT, G15_COLOR_BLACK, 5);
+        g15r_G15FPrint (canvas, qstringToChar(year), 4, 0, G15_TEXT_MED, G15_JUSTIFY_LEFT, G15_COLOR_BLACK, 5);
         g15r_G15FPrint (canvas, qstringToChar(strtemps), 0, 0, G15_TEXT_MED, G15_JUSTIFY_CENTER, G15_COLOR_BLACK, 5);
-        //g15r_G15FPrint (canvas, qstringToChar(strtotal), 0, 0, G15_TEXT_MED, G15_JUSTIFY_RIGHT, G15_COLOR_BLACK, 5);
     }
 
     g15_send(fd, (char *) canvas->buffer, G15_BUFFER_LEN);

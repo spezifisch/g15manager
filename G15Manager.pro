@@ -18,7 +18,6 @@ SOURCES += main.cpp\
     applets/audaciousapplet.cpp \
     applets/clementineapplet.cpp \
     applets/exaileapplet.cpp \
-    applets/gmailapplet.cpp \
     applets/hardwareapplet.cpp \
     applets/processesapplet.cpp \
     applets/rhythmboxapplet.cpp \
@@ -31,7 +30,6 @@ HEADERS  += mainwindow.h \
     applets/audaciousapplet.h \
     applets/clementineapplet.h \
     applets/exaileapplet.h \
-    applets/gmailapplet.h \
     applets/hardwareapplet.h \
     applets/processesapplet.h \
     applets/rhythmboxapplet.h \
@@ -46,7 +44,7 @@ icons.path = /usr/share/g15manager/icons
 icons.files = icons/*
 
 autostart.path = /etc/xdg/autostart
-autostart.files = shortcuts/g15manager_hidden.desktop
+autostart.files = shortcuts/g15manager_autostart.desktop
 
 shortcuts.path = /usr/share/applications
 shortcuts.files = shortcuts/g15manager.desktop

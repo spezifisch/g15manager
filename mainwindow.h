@@ -32,7 +32,6 @@ private slots:
     void on_button_Audacious_toggled();
     void on_button_Clementine_toggled();
     void on_button_Exaile_toggled();
-    void on_button_Gmail_toggled();
     void on_button_Hard_toggled();
     void on_button_Top_toggled();
     void on_button_Crono_toggled();

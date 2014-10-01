@@ -5,14 +5,15 @@
 
 #include "applets/applet.h"
 
+#define N_APPLETS 7
+
 #define APPLET_AMAROK 0
 #define APPLET_AUDACIOUS 1
 #define APPLET_EXAILE 2
 #define APPLET_CLEMENTINE 3
-#define APPLET_GMAIL 4
-#define APPLET_HARDWARE 5
-#define APPLET_TOP 6
-#define APPLET_CRONO 7
+#define APPLET_HARDWARE 4
+#define APPLET_TOP 5
+#define APPLET_CRONO 6
 
 
 class AppletsManager {

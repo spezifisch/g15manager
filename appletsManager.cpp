@@ -4,7 +4,6 @@
 #include "applets/audaciousapplet.h"
 #include "applets/clementineapplet.h"
 #include "applets/exaileapplet.h"
-#include "applets/gmailapplet.h"
 #include "applets/hardwareapplet.h"
 #include "applets/processesapplet.h"
 #include "applets/rhythmboxapplet.h"
@@ -13,9 +12,9 @@
 
 AppletsManager::AppletsManager() {
 
-    applets = std::vector < std::pair<bool,Applet*> > (8);
+    applets = std::vector < std::pair<bool,Applet*> > (N_APPLETS);
 
-    for (int i = 0; i < 8; ++i) applets[i].first = false;
+    for (int i = 0; i < N_APPLETS; ++i) applets[i].first = false;
 }
 
 bool AppletsManager::toggleApplet(int n) {
@@ -42,10 +41,6 @@ bool AppletsManager::toggleApplet(int n) {
 
             case APPLET_EXAILE:
                 applets[n].second = new exaileApplet();
-                break;
-
-            case APPLET_GMAIL:
-                applets[n].second = new gmailApplet();
                 break;
 
             case APPLET_HARDWARE:
@@ -75,7 +70,7 @@ bool AppletsManager::toggleApplet(int n) {
 
 
 void AppletsManager::update() {
-    for (int i = 0; i < 8; ++i) {
+    for (int i = 0; i < N_APPLETS; ++i) {
         if (applets[i].first) applets[i].second->update();
     }
 }
