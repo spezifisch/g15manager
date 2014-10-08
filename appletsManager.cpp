@@ -6,7 +6,6 @@
 #include "applets/exaileapplet.h"
 #include "applets/hardwareapplet.h"
 #include "applets/processesapplet.h"
-#include "applets/rhythmboxapplet.h"
 #include "applets/cronoapplet.h"
 
 

@@ -1,5 +1,5 @@
 g15manager (2.0.0-1) trusty; urgency=low
 
-  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+  * Initial release
 
- -- Nofre Móra Sagreres <nodiek@gmail.com>  Fri, 12 Sep 2014 11:31:42 +0200
+ -- Nofre Móra Sagreres <nodiek@gmail.com>  Wed, 08 Oct 2014 11:00:43 +0200

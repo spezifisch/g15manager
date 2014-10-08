@@ -20,7 +20,6 @@ SOURCES += main.cpp\
     applets/exaileapplet.cpp \
     applets/hardwareapplet.cpp \
     applets/processesapplet.cpp \
-    applets/rhythmboxapplet.cpp \
     applets/cronoapplet.cpp
 
 HEADERS  += mainwindow.h \
@@ -32,7 +31,6 @@ HEADERS  += mainwindow.h \
     applets/exaileapplet.h \
     applets/hardwareapplet.h \
     applets/processesapplet.h \
-    applets/rhythmboxapplet.h \
     applets/cronoapplet.h
 
 FORMS    += mainwindow.ui
@@ -49,4 +47,7 @@ autostart.files = shortcuts/g15manager_autostart.desktop
 shortcuts.path = /usr/share/applications
 shortcuts.files = shortcuts/g15manager.desktop
 
-INSTALLS = binaries icons autostart shortcuts
+manpage.path = /usr/share/man/man1
+manpage.files = man/g15manager.1.gz
+
+INSTALLS = binaries icons autostart shortcuts manpage

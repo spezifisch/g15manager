@@ -1,5 +1,5 @@
 Source: g15manager
-Section: unknown
+Section: misc
 Priority: optional
 Maintainer: Nofre Móra Sagreres <nodiek@gmail.com>
 Build-Depends: debhelper (>= 9.0.0), cdbs, qt4-default, qt4-qmake, libg15-dev, libg15daemon-client-dev, libg15render-dev
@@ -10,5 +10,8 @@ Homepage: http://www.nofremora.com
 Package: g15manager
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, g15daemon
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Description: G15 Manager is a control center for the Logitech G15 keyboard.
+ It allows display different applets in the screen: hardware monitor, 
+ cronometer, processes monitor, and media players.
+ .
+ There will be G-Keys support in next versions.
