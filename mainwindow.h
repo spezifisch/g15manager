@@ -28,6 +28,8 @@ private slots:
 
     void closeApp();
 
+    void trayIconClick(QSystemTrayIcon::ActivationReason reason);
+
     void on_button_Amarok_toggled();
     void on_button_Audacious_toggled();
     void on_button_Clementine_toggled();

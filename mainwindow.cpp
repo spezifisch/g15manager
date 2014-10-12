@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     QIcon icon = QIcon("/usr/share/g15manager/icons/g15_24.png");
     trayIcon = new QSystemTrayIcon(icon, this);
     trayIcon->setContextMenu(trayMenu);
+    connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(trayIconClick(QSystemTrayIcon::ActivationReason)));
     trayIcon->show();
 
     tancar = false;
@@ -59,6 +60,15 @@ MainWindow::~MainWindow() {
 void MainWindow::closeApp(){
     tancar = true;
     close();
+}
+
+
+void MainWindow::trayIconClick(QSystemTrayIcon::ActivationReason reason) {
+
+    if (reason == QSystemTrayIcon::Trigger) {
+        if (this->isVisible()) this->hide();
+        else this->show();
+    }
 }
 
 void MainWindow::timer()
@@ -103,7 +113,6 @@ void MainWindow::on_button_Top_toggled()
 {
     if (!applets.toggleApplet(APPLET_TOP)) ui->button_Top->setChecked(false);
 }
-
 
 void MainWindow::on_button_Chrono_toggled()
 {
