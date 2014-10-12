@@ -33,7 +33,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../../../../usr/share/g15manager/icons/g15.png</normaloff>../../../../usr/share/g15manager/icons/g15.png</iconset>
+    <normaloff>../../../../usr/share/g15manager/icons/g15manager.png</normaloff>../../../../usr/share/g15manager/icons/g15manager.png</iconset>
   </property>
   <property name="tabShape">
    <enum>QTabWidget::Rounded</enum>
