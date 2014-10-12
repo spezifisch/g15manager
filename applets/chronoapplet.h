@@ -1,5 +1,5 @@
-#ifndef CRONOAPPLET_H
-#define CRONOAPPLET_H
+#ifndef CHRONOAPPLET_H
+#define CHRONOAPPLET_H
 
 
 #include "applet.h"
@@ -11,11 +11,11 @@
 #define SET_S 4
 #define FINISHED 5
 
-class cronoApplet :  public Applet
+class chronoApplet :  public Applet
 {
     public:
-        cronoApplet();
-        ~cronoApplet();
+        chronoApplet();
+        ~chronoApplet();
 
         void update();
 
@@ -30,4 +30,4 @@ class cronoApplet :  public Applet
         bool blink;
 };
 
-#endif // CRONOAPPLET_H
+#endif // CHRONOAPPLET_H

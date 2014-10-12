@@ -12,6 +12,6 @@ Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, g15daemon
 Description: G15 Manager is a control center for the Logitech G15 keyboard.
  It allows display different applets in the screen: hardware monitor, 
- cronometer, processes monitor, and media players.
+ chronometer, processes monitor, and media players.
  .
  There will be G-Keys support in next versions.

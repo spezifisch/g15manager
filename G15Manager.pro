@@ -20,7 +20,7 @@ SOURCES += main.cpp\
     applets/exaileapplet.cpp \
     applets/hardwareapplet.cpp \
     applets/processesapplet.cpp \
-    applets/cronoapplet.cpp
+    applets/chronoapplet.cpp
 
 HEADERS  += mainwindow.h \
     appletsManager.h \
@@ -31,7 +31,7 @@ HEADERS  += mainwindow.h \
     applets/exaileapplet.h \
     applets/hardwareapplet.h \
     applets/processesapplet.h \
-    applets/cronoapplet.h
+    applets/chronoapplet.h
 
 FORMS    += mainwindow.ui
 

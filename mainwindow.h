@@ -34,7 +34,7 @@ private slots:
     void on_button_Exaile_toggled();
     void on_button_Hard_toggled();
     void on_button_Top_toggled();
-    void on_button_Crono_toggled();
+    void on_button_Chrono_toggled();
 
 private:
     Ui::MainWindow *ui;

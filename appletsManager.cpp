@@ -6,7 +6,7 @@
 #include "applets/exaileapplet.h"
 #include "applets/hardwareapplet.h"
 #include "applets/processesapplet.h"
-#include "applets/cronoapplet.h"
+#include "applets/chronoapplet.h"
 
 
 AppletsManager::AppletsManager() {
@@ -50,8 +50,8 @@ bool AppletsManager::toggleApplet(int n) {
                 applets[n].second = new processesApplet();
                 break;
 
-            case APPLET_CRONO:
-                applets[n].second = new cronoApplet();
+            case APPLET_CHRONO:
+                applets[n].second = new chronoApplet();
                 break;
         }
 

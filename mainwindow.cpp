@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->button_Exaile->setChecked(settings.value("exaile", false).toBool());
     ui->button_Hard->setChecked(settings.value("hardware", false).toBool());
     ui->button_Top->setChecked(settings.value("top", false).toBool());
-    ui->button_Crono->setChecked(settings.value("crono", false).toBool());
+    ui->button_Chrono->setChecked(settings.value("chrono", false).toBool());
 
     ui->checkStartHidden->setChecked(settings.value("start_hidden", true).toBool());
     ui->checkAutostart->setChecked(settings.value("autostart", true).toBool());
@@ -46,7 +46,7 @@ MainWindow::~MainWindow() {
     settings.setValue("exaile", ui->button_Exaile->isChecked());
     settings.setValue("hardware", ui->button_Hard->isChecked());
     settings.setValue("top", ui->button_Top->isChecked());
-    settings.setValue("crono", ui->button_Crono->isChecked());
+    settings.setValue("chrono", ui->button_Chrono->isChecked());
 
     settings.setValue("start_hidden", ui->checkStartHidden->isChecked());
     settings.setValue("autostart", ui->checkAutostart->isChecked());
@@ -105,7 +105,7 @@ void MainWindow::on_button_Top_toggled()
 }
 
 
-void MainWindow::on_button_Crono_toggled()
+void MainWindow::on_button_Chrono_toggled()
 {
-    if (!applets.toggleApplet(APPLET_CRONO)) ui->button_Crono->setChecked(false);
+    if (!applets.toggleApplet(APPLET_CHRONO)) ui->button_Chrono->setChecked(false);
 }

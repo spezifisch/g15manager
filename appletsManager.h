@@ -13,7 +13,7 @@
 #define APPLET_CLEMENTINE 3
 #define APPLET_HARDWARE 4
 #define APPLET_TOP 5
-#define APPLET_CRONO 6
+#define APPLET_CHRONO 6
 
 
 class AppletsManager {

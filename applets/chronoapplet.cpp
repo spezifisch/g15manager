@@ -1,9 +1,9 @@
 #include <sys/socket.h>
 #include <QDebug>
 
-#include "cronoapplet.h"
+#include "chronoapplet.h"
 
-cronoApplet::cronoApplet() : Applet() {
+chronoApplet::chronoApplet() : Applet() {
     countdown = false;
 
     time = 0;
@@ -15,9 +15,9 @@ cronoApplet::cronoApplet() : Applet() {
 
 }
 
-cronoApplet::~cronoApplet() {}
+chronoApplet::~chronoApplet() {}
 
-void cronoApplet::update() {
+void chronoApplet::update() {
 
     if (!blink) g15r_clearScreen(canvas, G15_COLOR_WHITE);
     else g15r_clearScreen(canvas, G15_COLOR_BLACK);
@@ -79,7 +79,7 @@ void cronoApplet::update() {
 
 
     if (countdown) g15r_G15FPrint(canvas, (char *) "COUNTDOWN", 0, 1, G15_TEXT_MED, G15_JUSTIFY_CENTER, G15_COLOR_BLACK, 0);
-    else g15r_G15FPrint(canvas, (char *) "CRONOMETER", 0, 1, G15_TEXT_MED, G15_JUSTIFY_CENTER, G15_COLOR_BLACK, 0);
+    else g15r_G15FPrint(canvas, (char *) "CHRONOMETER", 0, 1, G15_TEXT_MED, G15_JUSTIFY_CENTER, G15_COLOR_BLACK, 0);
 
     if (state == SET_M || state == SET_S) time = set_time;
     QString strtime;
