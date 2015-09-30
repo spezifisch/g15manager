@@ -3,6 +3,7 @@
 #include <QDBusConnection>
 #include <QDBusReply>
 #include <QRect>
+#include <QDateTime>
 
 #include "clementineapplet.h"
 
@@ -36,6 +37,8 @@ void clementineApplet::update() {
             QString artist = eliminarAccents(map.find("artist").value().toString());
             QString album = eliminarAccents(map.find("album").value().toString());
             QString year = map.find("year").value().toString();
+	    QDateTime current = QDateTime::currentDateTime();
+            QString timestr = current.toString("hh:mm");
             int length = map.find("time").value().toInt();
 
 
@@ -78,15 +81,16 @@ void clementineApplet::update() {
 
             int progress = float(position)/float(length)*160;
 
-            g15r_G15FPrint (canvas, qstringToChar(title), 0, 0, text_size, G15_JUSTIFY_CENTER, G15_COLOR_BLACK, 0);
-            g15r_G15FPrint (canvas, qstringToChar(artist), 0, 0, text_size, G15_JUSTIFY_CENTER, G15_COLOR_BLACK, 1);
+            g15r_G15FPrint (canvas, qstringToChar(artist), 0, 0, text_size, G15_JUSTIFY_CENTER, G15_COLOR_BLACK, 0);
+            g15r_G15FPrint (canvas, qstringToChar(title), 0, 0, text_size, G15_JUSTIFY_CENTER, G15_COLOR_BLACK, 1);
             g15r_G15FPrint (canvas, qstringToChar(album), 0, 0, text_size, G15_JUSTIFY_CENTER, G15_COLOR_BLACK, 2);
 
             g15r_pixelBox(canvas, 0, 28, progress, 32, G15_COLOR_BLACK, 1, G15_PIXEL_FILL);
             g15r_pixelBox(canvas, progress, 28, 159, 32, G15_COLOR_BLACK, 1, G15_PIXEL_NOFILL);
 
-            g15r_G15FPrint (canvas, qstringToChar(year), 4, 0, G15_TEXT_MED, G15_JUSTIFY_LEFT, G15_COLOR_BLACK, 5);
+            g15r_G15FPrint (canvas, qstringToChar(timestr), 4, 0, G15_TEXT_MED, G15_JUSTIFY_LEFT, G15_COLOR_BLACK, 5);
             g15r_G15FPrint (canvas, qstringToChar(strtemps), 0, 0, G15_TEXT_MED, G15_JUSTIFY_CENTER, G15_COLOR_BLACK, 5);
+	    g15r_G15FPrint (canvas, qstringToChar(year), 4, 0, G15_TEXT_MED, G15_JUSTIFY_RIGHT, G15_COLOR_BLACK, 5);
         }
     }
 
